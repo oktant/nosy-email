@@ -6,9 +6,7 @@ jdk: oraclejdk8
 addons:
   sonarcloud:
     organization: "notification-system"
-    token:
-      secure: "NV4wN0+V9zJcJkhGi+bX8I8gG9/CxKKoTFEUZMIW3sgGc5/CgX2wqoIBjvZFxHALNeiBBtWYZqp9JaxrAvn6s0ZjPE+R733aIAVEy+e3gJFth0fkG3WGrL0nH67djdP+eeKBvvNSmIRo19rx8nfScLHaOKF3RbuzbeGm6RFB52OceggRDLKpjN7yUvIczEdYV8re5GyNXbaPENqAh4uEg109SLxseCbsnRPs/VCKdi3pS9rHEKZ+hu5fJcyubkdi+LxdeI1rpXfZCrHXG5Nc1vFLyolKXQbitzfXEhqnFmnU0l8Xf9lQe7QTB9BhBGw/9Q+WfDI9OL7VR6anB5XL7rj3cNnQ44EonE5nTbrvTF+h17Hk0Scyk42+6L0V1oCw2phdWRiAzuy0VXmYyV+uWMZAIMS/Y94ddvyVe5jiwGjXuo+Iunu9jpeFrf5YkSKyow1dWfIRXh2OEv4Wu8Qi6G+WgEW70cy5e1zuczBHyNvKpOP7MVoYpskKfX+ikZ7Iwaqd987dC2s8Hst4omxSPfpRin1RjaShxQtguco704Ql2J7fEJNTjxnwxBaggHLLCQNyRMRxRSF+JjEmKbzVDhPmhEEHzPlFBlExad3KoSc54K5TBqBg1jYoZz5I2FntUPodDREdr51La/iAOHr0bDGfP5+oaPbJ3G79NNifRpM="
-
+    token: ${SONAR_TOKEN}
 
 script:
   # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
