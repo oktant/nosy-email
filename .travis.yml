@@ -6,7 +6,7 @@ jdk: oraclejdk8
 addons:
   sonarcloud:
     organization: "notification-system"
-    token: ${SONAR_TOKEN}
+    token: $SONAR_TOKEN
 
 script:
   # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
