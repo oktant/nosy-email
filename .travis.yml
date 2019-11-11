@@ -1,0 +1,28 @@
+language: java 
+dist: trusty
+jdk: oraclejdk8
+
+
+addons:
+  sonarcloud:
+    organization: "notification-system"
+    token:
+      secure: "DMazTSHhalVBPZq5vUDg03dNuGRv0L69jxAZG+Uhu8XA/x49hoOjFVSNJEu8ojBpLuc/dFXtcyyw6kOl7lLceOjuC4Ikb7ethYuAgNyNg1LVULIzvdN3dbQpACXp56NSZo4J2s/YzW7YG40Cd57NLlfzrekPo7J5rAss7K/2ILfQvnLX+tLmSx0hLSIHmlOIm5KwaBZNMpTDFanGNCqtv+ySKZDikE/yaBQzIMHmK3OQYIyw58KYXYwpSFKrXpiMd6VrzsHvMtAm1gghe9Riu0FJVJVnONgpkGG1ANINKuOTnYq9aqoVy7NlktAiZRWvPmbMd0FHKdv8UDmFdwbs0gNfTuBt3m8UnWsQ14FXYi3Y9Hjesy2F/OrCtfclDO+QceHkHvG8Kdgzk54mUq7Eks/WcOQ2d7bhLu00uZ5rTNtHJy7aXx5M8WxjZPutFWIPxz8fxK4I/Y1S7zE/S6+i2scJLuHpM55j9JQ+aHMdhzNK+PoRiZTK8//BkguCG8w8rYkzROg8DQtRmhU98vilJsfef3mHNK0v6T8GAxt5HGf22S9NJEb+A2iE3txlfL2mdyP5nmjE6xZp1krSZEosw4cfJ7nfLRLFw6Dvm6l5jxtIirMSF8f4q2L3HbpxvITeJt5O86xHjGh8ybKd+W/h8AcFDKx6RmxRgpmAdepLqzU="
+
+script:
+  # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
+  - ./mvnw clean install -B
+  - ./mvnw clean verify sonar:sonar -Pcoverage 
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+    
+services:
+  - docker
+
+after_success:
+   - docker login -u $DOCKER_USER -p $DOCKER_PASS
+   - docker build -t $IMAGE_TAG .
+   - docker push $IMAGE_TAG
