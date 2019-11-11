@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import tech.nosy.nosyemail.nosyemail.config.EmailConfigs;
+import tech.nosy.nosyemail.nosyemail.model.EmailFromProvider;
 import tech.nosy.nosyemail.nosyemail.model.ReadyEmail;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -30,7 +31,7 @@ public class EmailSenderService {
         this.emailConfigs=emailConfigs;
     }
     public void send(ReadyEmail readyEmail, JavaMailSenderImpl javaMailSender){
-        if (readyEmail.getEmailTemplate().getEmailTemplateFromProvider().equals(DEFAULT_FROM_PROVIDER) ||
+        if (readyEmail.getEmailTemplate().getEmailTemplateFromProvider().equals(EmailFromProvider.DEFAULT) ||
                 readyEmail.getEmailTemplate().getEmailTemplateFromAddress()==null ||
                 readyEmail.getEmailProviderProperties()==null ||
                 readyEmail.getEmailProviderProperties().getUsername()==null ||
@@ -49,7 +50,7 @@ public class EmailSenderService {
 
             mimeMessageHelper.setFrom(readyEmail.getEmailTemplate().getEmailTemplateFromAddress());
             mimeMessageHelper.setSubject(readyEmail.getEmailTemplate().getEmailTemplateSubject());
-            if(readyEmail.getEmailTemplate().getEmailTemplateFromProvider().equals(DEFAULT_FROM_PROVIDER)){
+            if(readyEmail.getEmailTemplate().getEmailTemplateFromProvider().equals(EmailFromProvider.DEFAULT)){
                 mimeMessageHelper.setText(
                         readyEmail.getEmailTemplate().getEmailTemplateFromAddress()
                                 + ":   "
