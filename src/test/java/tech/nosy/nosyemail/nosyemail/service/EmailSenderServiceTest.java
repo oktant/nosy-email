@@ -201,7 +201,7 @@ public class EmailSenderServiceTest {
 
 
   }
-  @Test(expected = org.junit.Test.None.class)
+  @Test(expected = Test.None.class)
   public void messagingException() {
     readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
     MimeMessageHelper mimeMessageHelper=mock(MimeMessageHelper.class);
@@ -228,7 +228,7 @@ public class EmailSenderServiceTest {
 
   }
 
-  @Test(expected = org.junit.Test.None.class)
+  @Test(expected = Test.None.class)
   public void messagingExceptionFromAddToMethod() {
     readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
     MimeMessageHelper mimeMessageHelper=mock(MimeMessageHelper.class);
@@ -259,7 +259,7 @@ public class EmailSenderServiceTest {
 
   }
 
-  @Test(expected = org.junit.Test.None.class)
+  @Test(expected = Test.None.class)
   public void messagingExceptionFromAddCcMethod() {
     readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
     MimeMessageHelper mimeMessageHelper=mock(MimeMessageHelper.class);
@@ -291,7 +291,7 @@ public class EmailSenderServiceTest {
   }
 
 
-  @Test(expected = org.junit.Test.None.class)
+  @Test(expected = Test.None.class)
   public void testWithEmptyEmailProviderProperties(){
     readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
     MimeMessageHelper mimeMessageHelper=mock(MimeMessageHelper.class);
@@ -317,7 +317,7 @@ public class EmailSenderServiceTest {
     }
 
   }
-  @Test(expected = org.junit.Test.None.class)
+  @Test(expected = Test.None.class)
   public void testWithNullUsernameEmailProviderProperties(){
     readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
     MimeMessageHelper mimeMessageHelper=mock(MimeMessageHelper.class);
@@ -346,7 +346,7 @@ public class EmailSenderServiceTest {
 
   }
 
-  @Test(expected = org.junit.Test.None.class)
+  @Test(expected = Test.None.class)
   public void testWithNullPasswordEmailProviderProperties(){
     readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
     MimeMessageHelper mimeMessageHelper=mock(MimeMessageHelper.class);
