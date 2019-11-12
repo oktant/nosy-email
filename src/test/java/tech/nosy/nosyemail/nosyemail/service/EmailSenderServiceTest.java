@@ -2,8 +2,10 @@ package tech.nosy.nosyemail.nosyemail.service;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -19,8 +21,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.doThrow;
-
-class EmailSenderServiceTest {
+@RunWith(MockitoJUnitRunner.class)
+public class EmailSenderServiceTest {
 
   @InjectMocks
   private EmailSenderService emailSenderService;
@@ -370,15 +372,6 @@ class EmailSenderServiceTest {
     } catch (MessagingException e) {
       throw new RuntimeException();
     }
-
-  }
-  @Test
-  public void testToString(){
-    String emailTemplateString="EmailTemplate{emailTemplateId='emailTemplateId', emailTemplateName='emailTemplateName', emailTemplateFromAddress='test@nosy.tech', emailTemplateFromProvider='DEFAULT', emailTemplateTo=[nosyTo1@email.to, nosyTo@email.to], emailTemplateCc=[nosyCc1@email.to, nosyCc@email.to], emailTemplateText='text', emailTemplateRetryTimes=1, emailTemplateRetryPeriod=1, emailTemplatePriority=1, emailTemplateSubject='subject'}";
-    assertEquals(emailTemplateString,readyEmail.getEmailTemplate().toString());
-    String readyEmailString="ReadyEmail{emailProviderProperties=null, emailTemplate=EmailTemplate{emailTemplateId='emailTemplateId', emailTemplateName='emailTemplateName', emailTemplateFromAddress='test@nosy.tech', emailTemplateFromProvider='DEFAULT', emailTemplateTo=[nosyTo1@email.to, nosyTo@email.to], emailTemplateCc=[nosyCc1@email.to, nosyCc@email.to], emailTemplateText='text', emailTemplateRetryTimes=1, emailTemplateRetryPeriod=1, emailTemplatePriority=1, emailTemplateSubject='subject'}}";
-
-    assertEquals(readyEmailString, readyEmail.toString());
 
   }
 }

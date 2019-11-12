@@ -15,8 +15,6 @@ import javax.mail.internet.MimeMessage;
 
 @Component
 public class EmailSenderService {
-    private static final String DEFAULT_FROM_PROVIDER="DEFAULT";
-
     private Logger logger = LoggerFactory.getLogger(EmailSenderService.class);
 
   @Value("${nosy.email.default.username}")
