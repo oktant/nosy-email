@@ -40,12 +40,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     return new ResponseEntity<>(MessageError.USERNAME_AND_PASSWORD_ARE_REQUIRED_FOR_NON_DEFAULT, HttpStatus.BAD_REQUEST);
   }
 
-
-  @ExceptionHandler(value = InvalidUsernameAndPasswordException.class)
-  public ResponseEntity<MessageError> invalidUsernameAndPasswordException() {
-    return new ResponseEntity<>(MessageError.INVALID_USERNAME_OR_PASSWORD, HttpStatus.BAD_REQUEST);
-  }
-
   @ExceptionHandler(value = EmailTemplateNotFoundException.class)
   public ResponseEntity<MessageError> emailTemplateNotFoundException() {
     return new ResponseEntity<>(MessageError.NO_EMAIL_TEMPLATE_FOUND, HttpStatus.NOT_FOUND);

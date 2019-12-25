@@ -90,11 +90,6 @@ public class RestResponseEntityExceptionHandlerTest {
     }
 
     @Test
-    public void invalidUsernameAndPasswordException() {
-        assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.invalidUsernameAndPasswordException().getStatusCode());
-    }
-
-    @Test
     public void emailTemplateNotFoundException() {
         assertEquals(HttpStatus.NOT_FOUND,restResponseEntityExceptionHandler.emailTemplateNotFoundException().getStatusCode());
     }
