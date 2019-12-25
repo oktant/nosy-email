@@ -31,7 +31,6 @@ public class EmailConfigs {
 
   @Bean("Gmail")
   public JavaMailSenderImpl javaMailGmailSender() {
-
     JavaMailSenderImpl gmail = new JavaMailSenderImpl();
     gmail.setHost("smtp.gmail.com");
     gmail.setPort(465);
