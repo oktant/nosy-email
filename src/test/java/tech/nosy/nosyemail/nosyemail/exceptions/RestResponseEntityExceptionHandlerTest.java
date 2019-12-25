@@ -8,6 +8,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSendException;
 
 import javax.persistence.RollbackException;
 
@@ -25,16 +26,9 @@ public class RestResponseEntityExceptionHandlerTest {
     RollbackException rollbackException;
 
     @Test
-    public void userAlreadyExistsException() {
-        assertEquals(HttpStatus.CONFLICT,
-                restResponseEntityExceptionHandler.userAlreadyExistsException().getStatusCode());
-    }
-    @Test
     public void emailTemplateNameInvalidException() {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.emailTemplateNameInvalidException().getStatusCode());
     }
-
-
 
     @Test
     public void constraintViolationMustBeWellFormed() {
@@ -44,7 +38,6 @@ public class RestResponseEntityExceptionHandlerTest {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.constraintViolation(rollbackException).getStatusCode());
 
     }
-
 
     @Test
     public void constraintViolationMustNotBeNull() {
@@ -102,11 +95,6 @@ public class RestResponseEntityExceptionHandlerTest {
     }
 
     @Test
-    public void notAuthenticatedException() {
-        assertEquals(HttpStatus.UNAUTHORIZED,restResponseEntityExceptionHandler.notAuthenticatedException().getStatusCode());
-    }
-
-    @Test
     public void emailTemplateNotFoundException() {
         assertEquals(HttpStatus.NOT_FOUND,restResponseEntityExceptionHandler.emailTemplateNotFoundException().getStatusCode());
     }
@@ -131,9 +119,14 @@ public class RestResponseEntityExceptionHandlerTest {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.inputSystemHasChildrenException().getStatusCode());
 
     }
-
-    @Test(expected = InvalidUsernameAndPasswordException.class)
-    public void InvalidUsernameAndPasswordException(){
-        throw new InvalidUsernameAndPasswordException();
+    @Test
+    public void sendExceptionMailSendException(){
+        MailSendException mailSendException=mock(MailSendException.class);
+        assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.sendException(mailSendException).getStatusCode());
+    }
+    @Test
+    public void sendException(){
+        MailSendException mailSendException=new MailSendException("No recipient addresses");
+        assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.sendException(mailSendException).getStatusCode());
     }
 }

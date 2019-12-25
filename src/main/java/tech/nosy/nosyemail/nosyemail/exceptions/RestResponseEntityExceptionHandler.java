@@ -19,11 +19,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     return new ResponseEntity<>(MessageError.ACCESS_FORBIDDEN_EXCEPTION, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  @ExceptionHandler(value = UserAlreadyExistException.class)
-  public ResponseEntity<MessageError> userAlreadyExistsException() {
-    return new ResponseEntity<>(MessageError.USER_ALREADY_EXISTS_EXCEPTION, HttpStatus.CONFLICT);
-  }
-
   @ExceptionHandler(value = DataIntegrityViolationException.class)
   public ResponseEntity<MessageError> objectAlreadyExistsException(DataIntegrityViolationException e) {
     return new ResponseEntity<>(MessageError.RESOURCE_ALREADY_EXISTS, HttpStatus.CONFLICT);
@@ -49,11 +44,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   @ExceptionHandler(value = InvalidUsernameAndPasswordException.class)
   public ResponseEntity<MessageError> invalidUsernameAndPasswordException() {
     return new ResponseEntity<>(MessageError.INVALID_USERNAME_OR_PASSWORD, HttpStatus.BAD_REQUEST);
-  }
-
-  @ExceptionHandler(value = NotAuthenticatedException.class)
-  public ResponseEntity<MessageError> notAuthenticatedException() {
-    return new ResponseEntity<>(MessageError.NOT_AUTHENTICATED, HttpStatus.UNAUTHORIZED);
   }
 
   @ExceptionHandler(value = EmailTemplateNotFoundException.class)
