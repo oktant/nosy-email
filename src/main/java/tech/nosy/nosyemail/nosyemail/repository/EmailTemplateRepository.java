@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import tech.nosy.nosyemail.nosyemail.model.EmailTemplate;
+
 import javax.transaction.Transactional;
 import java.util.List;
 

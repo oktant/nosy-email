@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import tech.nosy.nosyemail.nosyemail.config.EmailConfigs;
 import tech.nosy.nosyemail.nosyemail.model.EmailFromProvider;
 import tech.nosy.nosyemail.nosyemail.model.ReadyEmail;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
