@@ -26,8 +26,4 @@ public class EmailTemplateTest {
         emailTemplate.setEmailTemplateName("dasdas");
         emailTemplate.onCreate();
     }
-
-
-
-
 }

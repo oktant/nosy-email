@@ -22,12 +22,4 @@ public class ReadyEmail {
   public void setEmailTemplate(EmailTemplate emailTemplate) {
     this.emailTemplate = emailTemplate;
   }
-
-  @Override
-  public String toString() {
-    return "ReadyEmail{" +
-            "emailProviderProperties=" + emailProviderProperties +
-            ", emailTemplate=" + emailTemplate +
-            '}';
-  }
 }
