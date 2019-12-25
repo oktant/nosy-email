@@ -50,9 +50,6 @@ public class EmailTemplateService {
   }
 
   private InputSystem getInputSystemForTemplate(String inputSystemId, String email) {
-    if (!checkUsername(email)) {
-      throw new NotAuthenticatedException();
-    }
     InputSystem inputSystem = inputSystemRepository.findByInputSystemIdAndEmail(email, inputSystemId);
     if (inputSystem == null) {
       throw new InputSystemNotFoundException();
@@ -185,9 +182,5 @@ public class EmailTemplateService {
     currentEmailTemplate.setEmailTemplateSubject(emailTemplate.getEmailTemplateSubject());
     emailTemplateRepository.save(currentEmailTemplate);
     return currentEmailTemplate;
-  }
-
-  private boolean checkUsername(String email) {
-    return true;
   }
 }
