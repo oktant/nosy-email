@@ -8,7 +8,7 @@ import tech.nosy.nosyemail.nosyemail.model.*;
 import tech.nosy.nosyemail.nosyemail.repository.EmailTemplateRepository;
 import tech.nosy.nosyemail.nosyemail.repository.FeedRepository;
 import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
-import tech.nosy.nosyemail.nosyemail.repository.UserRepository;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +20,6 @@ public class EmailTemplateService {
   private EmailTemplateRepository emailTemplateRepository;
   private InputSystemRepository inputSystemRepository;
   private ReadyEmail readyEmail;
-  private UserRepository userRepository;
   private FeedRepository feedRepository;
   private EmailService emailServiceListener;
 
@@ -32,12 +31,10 @@ public class EmailTemplateService {
           EmailTemplateRepository emailTemplateRepository,
           InputSystemRepository inputSystemRepository,
           ReadyEmail readyEmail,
-          UserRepository userRepository,
           FeedRepository feedRepository,
           EmailService emailServiceListener) {
     this.emailTemplateRepository = emailTemplateRepository;
     this.inputSystemRepository = inputSystemRepository;
-    this.userRepository = userRepository;
     this.readyEmail = readyEmail;
     this.feedRepository = feedRepository;
     this.emailServiceListener = emailServiceListener;
@@ -195,7 +192,7 @@ public class EmailTemplateService {
   }
 
   private boolean checkUsername(String email) {
-    return userRepository.findById(email).isPresent();
+    return true;
   }
 
   public EmailTemplate addFeedToEmailTemplate(String inputSystemId, String emailTemplateId, String feedId, String email) {

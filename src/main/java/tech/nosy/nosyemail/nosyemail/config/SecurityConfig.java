@@ -28,11 +28,11 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @KeycloakConfiguration
 @EnableWebSecurity
 @ComponentScan(
-    basePackageClasses = KeycloakSecurityComponents.class,
-    excludeFilters =
+        basePackageClasses = KeycloakSecurityComponents.class,
+        excludeFilters =
         @ComponentScan.Filter(
-            type = FilterType.REGEX,
-            pattern = "org.keycloak.adapters.springsecurity.management.HttpSessionManager"))
+                type = FilterType.REGEX,
+                pattern = "org.keycloak.adapters.springsecurity.management.HttpSessionManager"))
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
   @Value("${nosy.client.role}")
@@ -66,16 +66,8 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
   @Override
   protected void configure(final HttpSecurity http) throws Exception {
     super.configure(http);
-    http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/auth/users**").
-            hasRole(nosyClientRole.toUpperCase());
-    http.csrf()
-        .disable()
-        .authorizeRequests()
-        .antMatchers(
-            "/api/v1/input-systems**",
-            "/api/v1/auth/logout**",
-            "/api/v1/email-groups**",
-            "/api/v1/email**").hasRole(nosyClientRole.toUpperCase());
+    http.csrf().disable().authorizeRequests().antMatchers("/api/v1/**").
+            hasAnyAuthority("ROLE_" + nosyClientRole.toUpperCase());
     http.authorizeRequests().anyRequest().permitAll();
   }
 
@@ -86,7 +78,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
   @Bean
   public FilterRegistrationBean keycloakAuthenticationProcessingFilterRegistrationBean(
-      final KeycloakAuthenticationProcessingFilter filter) {
+          final KeycloakAuthenticationProcessingFilter filter) {
     final FilterRegistrationBean registrationBean = new FilterRegistrationBean(filter);
     registrationBean.setEnabled(false);
     return registrationBean;
@@ -94,7 +86,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
   @Bean
   public FilterRegistrationBean keycloakPreAuthActionsFilterRegistrationBean(
-      final KeycloakPreAuthActionsFilter filter) {
+          final KeycloakPreAuthActionsFilter filter) {
     final FilterRegistrationBean registrationBean = new FilterRegistrationBean(filter);
     registrationBean.setEnabled(false);
     return registrationBean;

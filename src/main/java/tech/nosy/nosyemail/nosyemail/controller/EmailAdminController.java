@@ -3,6 +3,7 @@ package tech.nosy.nosyemail.nosyemail.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tech.nosy.nosyemail.nosyemail.dto.EmailTemplateDto;
 import tech.nosy.nosyemail.nosyemail.dto.FeedDto;
@@ -17,6 +18,8 @@ import tech.nosy.nosyemail.nosyemail.utils.EmailTemplateMapper;
 import tech.nosy.nosyemail.nosyemail.utils.FeedMapper;
 import tech.nosy.nosyemail.nosyemail.utils.InputSystemMapper;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +31,6 @@ public class EmailAdminController {
 
   private EmailTemplateService emailTemplateService;
   private InputSystemService inputSystemService;
-  private FeedService feedService;
 
   @Autowired
   public EmailAdminController(
@@ -38,8 +40,40 @@ public class EmailAdminController {
   ) {
     this.emailTemplateService = emailTemplateService;
     this.inputSystemService = inputSystemService;
-    this.feedService = feedService;
   }
+
+  @PostMapping(value="/input-systems")
+  public ResponseEntity<InputSystemDto> newType(@Valid @RequestBody InputSystemDto inputSystemDto, Principal principal) {
+    return new ResponseEntity<>( InputSystemMapper.INSTANCE.toInputSystemDto(inputSystemService.saveInputSystem(
+            InputSystemMapper.INSTANCE.toInputSystem(inputSystemDto), principal.getName())), HttpStatus.CREATED);
+  }
+
+  @GetMapping(value = "/input-systems")
+  public ResponseEntity<Set<InputSystemDto>> getInputSystems(Principal principal) {
+    return new ResponseEntity<>(
+            InputSystemMapper.INSTANCE.toInputSystemDtoSet(inputSystemService.getListOfInputSystems(principal.getName())), HttpStatus.OK);
+  }
+
+  @DeleteMapping(value = "/input-systems/{inputSystemId}")
+  public ResponseEntity<String> deleteInputSystem(
+          @PathVariable String inputSystemId, Principal principal) {
+    inputSystemService.deleteInputSystem(inputSystemId, principal.getName());
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
+
+  @PostMapping(value = "/input-systems/{inputSystemId}/email-templates")
+  public ResponseEntity<EmailTemplateDto> newEmailTemplate(Principal principal,
+                                                           @PathVariable String inputSystemId,
+                                                           @RequestBody EmailTemplateDto emailTemplateDto
+  ) {
+    return new ResponseEntity<>( EmailTemplateMapper.INSTANCE.toEmailTemplateDto(
+            emailTemplateService.newEmailTemplate(
+                    EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto),
+                    inputSystemId,
+                    principal.getName())),
+            HttpStatus.CREATED);
+  }
+  /////////////////////////////////////////////////////FIXED
 
   @PostMapping(value = "/input-systems/{inputSystemId}/email-templates/{emailTemplateId}/post")
   public ResponseEntity<EmailTemplateDto> emailTemplatePost(
@@ -60,19 +94,7 @@ public class EmailAdminController {
               EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplateService.postEmail(readyEmail)), HttpStatus.OK);
   }
 
-  @PostMapping(value = "/input-systems", consumes = "application/json")
-  public ResponseEntity<InputSystemDto> newType(@RequestBody InputSystemDto inputSystemDto, Principal principal) {
-    return new ResponseEntity<>( InputSystemMapper.INSTANCE.toInputSystemDto(inputSystemService.saveInputSystem(
-        InputSystemMapper.INSTANCE.toInputSystem(inputSystemDto), principal.getName())), HttpStatus.CREATED);
-  }
-
-  @GetMapping(value = "/input-systems")
-  public ResponseEntity<Set<InputSystemDto>> getInputSystems(Principal principal) {
-    return new ResponseEntity<>(
-            InputSystemMapper.INSTANCE.toInputSystemDtoSet(inputSystemService.getListOfInputSystems(principal.getName())), HttpStatus.OK);
-  }
-
-  @GetMapping(value = "/input-systems/email-providers")
+  @GetMapping(value = "/email-providers")
   public ResponseEntity<List<String>> getEmailAllProviders(Principal principal) {
     return new ResponseEntity<>(emailTemplateService.getAllEmailProviders(), HttpStatus.OK);
   }
@@ -87,19 +109,6 @@ public class EmailAdminController {
             InputSystemMapper.INSTANCE.toInputSystemDto(inputSystemService.updateInputSystemStatus(
             inputSystemId, InputSystemMapper.INSTANCE.toInputSystem(inputSystemDto), principal.getName())),
         HttpStatus.OK);
-  }
-
-  @PostMapping(value = "/input-systems/{inputSystemId}/email-templates")
-  public ResponseEntity<EmailTemplateDto> newEmailTemplate(Principal principal,
-                                                           @PathVariable String inputSystemId,
-                                                           @RequestBody EmailTemplateDto emailTemplateDto
-      ) {
-    return new ResponseEntity<>( EmailTemplateMapper.INSTANCE.toEmailTemplateDto(
-        emailTemplateService.newEmailTemplate(
-                EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto),
-            inputSystemId,
-            principal.getName())),
-        HttpStatus.CREATED);
   }
 
   @GetMapping(value = "/input-systems/{inputSystemId}/email-templates/{emailTemplateId}")
@@ -145,13 +154,6 @@ public class EmailAdminController {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
-  @DeleteMapping(value = "/input-systems/{inputSystemId}")
-  public ResponseEntity<String> deleteInputSystem(
-          @PathVariable String inputSystemId, Principal principal) {
-    inputSystemService.deleteInputSystem(inputSystemId, principal.getName());
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-  }
-
   @PutMapping(value = "/input-systems/{inputSystemId}/email-templates/{emailTemplateId}/feeds/{feedId}")
   public ResponseEntity<EmailTemplateDto> addFeedToEmailTemplate(
           @PathVariable String inputSystemId,
@@ -168,115 +170,115 @@ public class EmailAdminController {
             )), HttpStatus.OK);
   }
 
-  @PostMapping(value = "/input-systems/{inputSystemId}/feeds")
-  public ResponseEntity<FeedDto> newFeed(
-          @PathVariable String inputSystemId,
-          @RequestBody FeedDto feedDto,
-          Principal principal
-  ) {
-      return new ResponseEntity<>(
-              FeedMapper.INSTANCE.toFeedDto(feedService.newFeed(
-                      inputSystemId,
-                      FeedMapper.INSTANCE.toFeed(feedDto),
-                      principal.getName()
-              )), HttpStatus.CREATED
-      );
-  }
+//  @PostMapping(value = "/input-systems/{inputSystemId}/feeds")
+//  public ResponseEntity<FeedDto> newFeed(
+//          @PathVariable String inputSystemId,
+//          @RequestBody FeedDto feedDto,
+//          Principal principal
+//  ) {
+//      return new ResponseEntity<>(
+//              FeedMapper.INSTANCE.toFeedDto(feedService.newFeed(
+//                      inputSystemId,
+//                      FeedMapper.INSTANCE.toFeed(feedDto),
+//                      principal.getName()
+//              )), HttpStatus.CREATED
+//      );
+//  }
+//
+//  @GetMapping(value = "/input-systems/{inputSystemId}/feeds")
+//  public ResponseEntity<List<FeedDto>> getFeeds(@PathVariable String inputSystemId, Principal principal) {
+//    return new ResponseEntity<>(
+//            FeedMapper.INSTANCE.toFeedDtoList(feedService.getListOfFeeds(
+//                    inputSystemId, principal.getName()
+//            )), HttpStatus.OK
+//    );
+//  }
 
-  @GetMapping(value = "/input-systems/{inputSystemId}/feeds")
-  public ResponseEntity<List<FeedDto>> getFeeds(@PathVariable String inputSystemId, Principal principal) {
-    return new ResponseEntity<>(
-            FeedMapper.INSTANCE.toFeedDtoList(feedService.getListOfFeeds(
-                    inputSystemId, principal.getName()
-            )), HttpStatus.OK
-    );
-  }
+//  @GetMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}")
+//  public ResponseEntity<FeedDto> getFeedByInputSystemIdAndFeedId(
+//          @PathVariable String inputSystemId,
+//          @PathVariable String feedId
+//  ) {
+//    return new ResponseEntity<>(
+//            FeedMapper.INSTANCE.toFeedDto(feedService.getFeedByInputSystemIdAndFeedId(
+//                    inputSystemId,
+//                    feedId
+//            )), HttpStatus.OK
+//    );
+//  }
 
-  @GetMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}")
-  public ResponseEntity<FeedDto> getFeedByInputSystemIdAndFeedId(
-          @PathVariable String inputSystemId,
-          @PathVariable String feedId
-  ) {
-    return new ResponseEntity<>(
-            FeedMapper.INSTANCE.toFeedDto(feedService.getFeedByInputSystemIdAndFeedId(
-                    inputSystemId,
-                    feedId
-            )), HttpStatus.OK
-    );
-  }
+//  @PutMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}")
+//  public ResponseEntity<FeedDto> updateFeed(
+//          @PathVariable String inputSystemId,
+//          @PathVariable String feedId,
+//          @RequestBody FeedDto feedDto,
+//          Principal principal
+//  ) {
+//    return new ResponseEntity<>(
+//            FeedMapper.INSTANCE.toFeedDto(feedService.updateFeed(
+//                    inputSystemId,
+//                    feedId,
+//                    FeedMapper.INSTANCE.toFeed(feedDto),
+//                    principal.getName()
+//            )), HttpStatus.OK
+//    );
+//  }
+//
+//  @DeleteMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}")
+//  public ResponseEntity<String> deleteFeed(
+//          @PathVariable String inputSystemId,
+//          @PathVariable String feedId,
+//          Principal principal
+//  ) {
+//    feedService.deleteFeed(inputSystemId, feedId, principal.getName());
+//    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//  }
 
-  @PutMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}")
-  public ResponseEntity<FeedDto> updateFeed(
-          @PathVariable String inputSystemId,
-          @PathVariable String feedId,
-          @RequestBody FeedDto feedDto,
-          Principal principal
-  ) {
-    return new ResponseEntity<>(
-            FeedMapper.INSTANCE.toFeedDto(feedService.updateFeed(
-                    inputSystemId,
-                    feedId,
-                    FeedMapper.INSTANCE.toFeed(feedDto),
-                    principal.getName()
-            )), HttpStatus.OK
-    );
-  }
-
-  @DeleteMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}")
-  public ResponseEntity<String> deleteFeed(
-          @PathVariable String inputSystemId,
-          @PathVariable String feedId,
-          Principal principal
-  ) {
-    feedService.deleteFeed(inputSystemId, feedId, principal.getName());
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-  }
-
-  @PostMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}/subscriptions")
-  public ResponseEntity<FeedDto> subscribeToFeed(
-          @PathVariable String inputSystemId,
-          @PathVariable String feedId,
-          Principal principal
-  ) {
-      return new ResponseEntity<>(
-              FeedMapper.INSTANCE.toFeedDto(feedService.subscribeToFeed(
-                      inputSystemId,
-                      feedId,
-                      principal.getName()
-              )), HttpStatus.OK
-      );
-  }
-
-  @DeleteMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}/subscriptions")
-  public ResponseEntity<FeedDto> unsubscribeToFeed(
-          @PathVariable String inputSystemId,
-          @PathVariable String feedId,
-          Principal principal
-  ) {
-    return new ResponseEntity<>(
-            FeedMapper.INSTANCE.toFeedDto(feedService.unsubscribeToFeed(
-                    inputSystemId,
-                    feedId,
-                    principal.getName()
-            )), HttpStatus.NO_CONTENT
-    );
-  }
-
-  @PostMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}/post")
-  public ResponseEntity<FeedDto> postFeed(
-          @PathVariable String inputSystemId,
-          @PathVariable String feedId,
-          @RequestBody EmailProviderProperties emailProviderProperties,
-          Principal principal
-  ) {
-    return new ResponseEntity<>(
-            FeedMapper.INSTANCE.toFeedDto(feedService.postFeed(
-                    inputSystemId,
-                    feedId,
-                    emailProviderProperties,
-                    principal.getName()
-            )), HttpStatus.OK
-    );
-  }
+//  @PostMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}/subscriptions")
+//  public ResponseEntity<FeedDto> subscribeToFeed(
+//          @PathVariable String inputSystemId,
+//          @PathVariable String feedId,
+//          Principal principal
+//  ) {
+//      return new ResponseEntity<>(
+//              FeedMapper.INSTANCE.toFeedDto(feedService.subscribeToFeed(
+//                      inputSystemId,
+//                      feedId,
+//                      principal.getName()
+//              )), HttpStatus.OK
+//      );
+//  }
+//
+//  @DeleteMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}/subscriptions")
+//  public ResponseEntity<FeedDto> unsubscribeToFeed(
+//          @PathVariable String inputSystemId,
+//          @PathVariable String feedId,
+//          Principal principal
+//  ) {
+//    return new ResponseEntity<>(
+//            FeedMapper.INSTANCE.toFeedDto(feedService.unsubscribeToFeed(
+//                    inputSystemId,
+//                    feedId,
+//                    principal.getName()
+//            )), HttpStatus.NO_CONTENT
+//    );
+//  }
+//
+//  @PostMapping(value = "/input-systems/{inputSystemId}/feeds/{feedId}/post")
+//  public ResponseEntity<FeedDto> postFeed(
+//          @PathVariable String inputSystemId,
+//          @PathVariable String feedId,
+//          @RequestBody EmailProviderProperties emailProviderProperties,
+//          Principal principal
+//  ) {
+//    return new ResponseEntity<>(
+//            FeedMapper.INSTANCE.toFeedDto(feedService.postFeed(
+//                    inputSystemId,
+//                    feedId,
+//                    emailProviderProperties,
+//                    principal.getName()
+//            )), HttpStatus.OK
+//    );
+//  }
 
 }

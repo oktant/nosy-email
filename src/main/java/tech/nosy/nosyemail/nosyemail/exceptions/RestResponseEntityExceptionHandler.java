@@ -1,11 +1,15 @@
 package tech.nosy.nosyemail.nosyemail.exceptions;
 
+import org.postgresql.util.PSQLException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSendException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.mail.SendFailedException;
 import javax.persistence.RollbackException;
 import javax.validation.ConstraintViolationException;
 
@@ -22,9 +26,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     return new ResponseEntity<>(MessageError.USER_ALREADY_EXISTS_EXCEPTION, HttpStatus.CONFLICT);
   }
 
-  @ExceptionHandler(value = InputSystemAlreadyExistsException.class)
-  public ResponseEntity<MessageError> inputSystemExistAlreadyExistsException() {
-    return new ResponseEntity<>(MessageError.INPUT_SYSTEM_EXIST, HttpStatus.CONFLICT);
+  @ExceptionHandler(value = DataIntegrityViolationException.class)
+  public ResponseEntity<MessageError> inputSystemExistAlreadyExistsException(DataIntegrityViolationException e) {
+    System.out.println(e.getMessage());
+    return new ResponseEntity<>(MessageError.RESOURCE_ALREADY_EXISTS, HttpStatus.CONFLICT);
   }
 
   @ExceptionHandler(value = EmailTemplateNameInvalidException.class)
@@ -110,6 +115,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   @ExceptionHandler(value = FeedNotSubscribedException.class)
   public ResponseEntity<MessageError> feedNotSubscribed() {
     return new ResponseEntity<>(MessageError.FEED_NOT_SUBSCRIBED_TO, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(value = MailSendException.class)
+  public ResponseEntity<MessageError> sendException(MailSendException ex) {
+    if(ex.getMessage()!=null && ex.getMessage().contains("No recipient addresses")){
+      return new ResponseEntity<>(MessageError.TO_ADDRESS_IS_NOT_SPECIFIED, HttpStatus.BAD_REQUEST);
+
+    }
+    return new ResponseEntity<>(MessageError.MAIL_CANNOT_BE_SENT, HttpStatus.BAD_REQUEST);
   }
 
 }

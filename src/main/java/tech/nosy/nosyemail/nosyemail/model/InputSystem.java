@@ -1,32 +1,27 @@
 package tech.nosy.nosyemail.nosyemail.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @DynamicInsert
 @Entity
-@Table(
-    name = "inputSystem",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"inputSystemName", "email"}))
+@Table(name = "inputSystem",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"inputSystemName", "email"})})
 public class InputSystem {
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Id
-  @NotNull
   private String inputSystemId;
 
   @NotNull private String inputSystemName;
 
-  @ManyToOne
-  @JsonBackReference
-  @JoinColumn(name = "email")
-  private User user;
+  @NotNull @Email
+  private String email;
 
   @JsonManagedReference
   @OneToMany(mappedBy = "inputSystem", orphanRemoval = true, cascade = CascadeType.ALL)
@@ -44,12 +39,12 @@ public class InputSystem {
     this.inputSystemId = inputSystemId;
   }
 
-  public User getUser() {
-    return user;
+  public String getEmail() {
+    return email;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getInputSystemName() {

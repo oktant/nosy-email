@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import tech.nosy.nosyemail.nosyemail.model.InputSystem;
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Transactional
 @Repository
@@ -20,4 +21,6 @@ public interface InputSystemRepository extends JpaRepository<InputSystem, String
   @Query("from InputSystem where email=:email and " + "input_system_id=:inputSystemId")
   InputSystem findByInputSystemIdAndEmail(
           @Param("email") String email, @Param("inputSystemId") String inputSystemId);
+
+  Set<InputSystem> getInputSystemByEmail(String email);
 }

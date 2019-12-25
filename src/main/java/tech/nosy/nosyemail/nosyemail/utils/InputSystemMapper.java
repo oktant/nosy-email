@@ -19,7 +19,6 @@ public abstract class InputSystemMapper {
     public abstract InputSystemDto toInputSystemDto(InputSystem inputSystem);
             @Mapping(source = "id", target = "inputSystemId")
             @Mapping(source = "name", target = "inputSystemName")
-
     public abstract InputSystem toInputSystem(InputSystemDto emailTemplateDto);
 
     public abstract Set<InputSystemDto> toInputSystemDtoSet(Set<InputSystem> inputSystemSet);

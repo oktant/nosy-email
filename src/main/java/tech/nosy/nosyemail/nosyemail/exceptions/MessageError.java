@@ -17,9 +17,6 @@ public enum MessageError {
       "Not enough paramaters to replace. Please add all placeholders"),
   INPUT_SYSTEM_HAS_CHILDREN(
       "Input System cannot be deleted. Because it has dependent children. Please delete Email Templates associated with this InputSystem to be able to delete it"),
-  INPUT_SYSTEM_EXIST(
-      "InputSystem with current name already exists in the system please. Please try another name"),
-  USER_DOES_NOT_EXIST("User does not exists please register first"),
   INPUT_SYSTEM_NAME_IS_MANDATORY("Input System Name is mandatory field"),
   ACCESS_FORBIDDEN_EXCEPTION("Authorization server is not responding, please try again later"),
   USER_ALREADY_EXISTS_EXCEPTION("User already exists. Please try another email"),
@@ -31,7 +28,10 @@ public enum MessageError {
   NO_FEED_FOUND("No Feed was found with specified request. Please correct your request"),
   FEED_NAME_CANNOT_BE_NULL("Email Feed Name cannot be null or empty"),
   FEED_ALREADY_SUBSCRIBED_TO("Email Feed already subscribed to."),
-  FEED_NOT_SUBSCRIBED_TO("Email Feed does not have an active subscription with the specified email.");
+  FEED_NOT_SUBSCRIBED_TO("Email Feed does not have an active subscription with the specified email."),
+  RESOURCE_ALREADY_EXISTS("Resource already exists in the system please."),
+  TO_ADDRESS_IS_NOT_SPECIFIED("No recipient address has been specified"),
+  MAIL_CANNOT_BE_SENT("Cannot send email, check the payload");
 
 
   private String message;

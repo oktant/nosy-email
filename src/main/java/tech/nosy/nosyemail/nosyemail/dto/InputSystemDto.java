@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 
 public class InputSystemDto {
-  @NotNull private String id;
+  private String id;
   @NotNull private String name;
 
   public String getId() {
