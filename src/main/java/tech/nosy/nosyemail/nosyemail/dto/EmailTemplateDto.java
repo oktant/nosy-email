@@ -2,7 +2,6 @@ package tech.nosy.nosyemail.nosyemail.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import tech.nosy.nosyemail.nosyemail.model.EmailFromProvider;
-import tech.nosy.nosyemail.nosyemail.model.Feed;
 import tech.nosy.nosyemail.nosyemail.model.InputSystem;
 
 import javax.validation.constraints.Email;
@@ -33,9 +32,6 @@ public class EmailTemplateDto {
   private int priority;
   @JsonIgnore
   @NotNull private InputSystem inputSystem;
-
-  @JsonIgnore
-  private Feed feed;
 
   public String getId() {
     return id;
@@ -131,13 +127,5 @@ public class EmailTemplateDto {
 
   public void setInputSystem(InputSystem inputSystem) {
     this.inputSystem = inputSystem;
-  }
-
-  public Feed getFeed() {
-    return feed;
-  }
-
-  public void setFeed(Feed feed) {
-    this.feed = feed;
   }
 }

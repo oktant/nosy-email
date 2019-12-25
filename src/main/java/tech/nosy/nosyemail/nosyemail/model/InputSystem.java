@@ -27,10 +27,6 @@ public class InputSystem {
   @OneToMany(mappedBy = "inputSystem", orphanRemoval = true, cascade = CascadeType.ALL)
   private Set<EmailTemplate> emailTemplate;
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "inputSystem", orphanRemoval = true, cascade = CascadeType.ALL)
-  private Set<Feed> feed;
-
   public String getInputSystemId() {
     return inputSystemId;
   }
@@ -61,13 +57,5 @@ public class InputSystem {
 
   public void setEmailTemplate(Set<EmailTemplate> emailTemplate) {
     this.emailTemplate = emailTemplate;
-  }
-
-  public Set<Feed> getFeed() {
-    return feed;
-  }
-
-  public void setFeed(Set<Feed> feed) {
-    this.feed = feed;
   }
 }

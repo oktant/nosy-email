@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import tech.nosy.nosyemail.nosyemail.exceptions.*;
 import tech.nosy.nosyemail.nosyemail.model.*;
 import tech.nosy.nosyemail.nosyemail.repository.EmailTemplateRepository;
-import tech.nosy.nosyemail.nosyemail.repository.FeedRepository;
 import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
 
 import java.util.HashSet;
@@ -20,7 +19,6 @@ public class EmailTemplateService {
   private EmailTemplateRepository emailTemplateRepository;
   private InputSystemRepository inputSystemRepository;
   private ReadyEmail readyEmail;
-  private FeedRepository feedRepository;
   private EmailService emailServiceListener;
 
   @Value("${default.nosy.from.address}")
@@ -31,12 +29,10 @@ public class EmailTemplateService {
           EmailTemplateRepository emailTemplateRepository,
           InputSystemRepository inputSystemRepository,
           ReadyEmail readyEmail,
-          FeedRepository feedRepository,
           EmailService emailServiceListener) {
     this.emailTemplateRepository = emailTemplateRepository;
     this.inputSystemRepository = inputSystemRepository;
     this.readyEmail = readyEmail;
-    this.feedRepository = feedRepository;
     this.emailServiceListener = emailServiceListener;
   }
 
@@ -194,23 +190,4 @@ public class EmailTemplateService {
   private boolean checkUsername(String email) {
     return true;
   }
-
-  public EmailTemplate addFeedToEmailTemplate(String inputSystemId, String emailTemplateId, String feedId, String email) {
-    EmailTemplate currentEmailTemplate = getEmailTemplateById(emailTemplateId, inputSystemId, email);
-
-    Feed feed = feedRepository.findFeedByIdAndInputSystemId(feedId, inputSystemId);
-    if (feed == null) {
-      throw new FeedNotFoundException();
-    }
-
-    if (currentEmailTemplate.getFeeds().stream().anyMatch(ef -> ef.getFeedId().equals(feedId))) {
-      throw new FeedExistException();
-    }
-
-    feed.setEmailTemplate(currentEmailTemplate);
-    feedRepository.save(feed);
-
-    return currentEmailTemplate;
-  }
-
 }

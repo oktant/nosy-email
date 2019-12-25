@@ -1,6 +1,5 @@
 package tech.nosy.nosyemail.nosyemail.exceptions;
 
-import org.postgresql.util.PSQLException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +7,6 @@ import org.springframework.mail.MailSendException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import javax.mail.SendFailedException;
 import javax.persistence.RollbackException;
 import javax.validation.ConstraintViolationException;
 
@@ -83,7 +80,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     return new ResponseEntity<>(MessageError.INPUT_SYSTEM_HAS_CHILDREN, HttpStatus.BAD_REQUEST);
   }
 
-
   @ExceptionHandler(value = {ConstraintViolationException.class, RollbackException.class})
   public ResponseEntity<MessageError> constraintViolation(RollbackException ex) {
     if (ex.getCause().getLocalizedMessage().contains("must be a well-formed")) {
@@ -97,31 +93,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
   }
 
-  @ExceptionHandler(value = FeedExistException.class)
-  public ResponseEntity<MessageError> feedExistException() {
-    return new ResponseEntity<>(MessageError.FEED_EXIST, HttpStatus.CONFLICT);
-  }
-
-  @ExceptionHandler(value = FeedNotFoundException.class)
-  public ResponseEntity<MessageError> feedNotFound() {
-    return new ResponseEntity<>(MessageError.NO_FEED_FOUND, HttpStatus.NOT_FOUND);
-  }
-
-  @ExceptionHandler(value = FeedAlreadySubscribedException.class)
-  public ResponseEntity<MessageError> feedAlreadySubscribed() {
-    return new ResponseEntity<>(MessageError.FEED_ALREADY_SUBSCRIBED_TO, HttpStatus.CONFLICT);
-  }
-
-  @ExceptionHandler(value = FeedNotSubscribedException.class)
-  public ResponseEntity<MessageError> feedNotSubscribed() {
-    return new ResponseEntity<>(MessageError.FEED_NOT_SUBSCRIBED_TO, HttpStatus.BAD_REQUEST);
-  }
-
   @ExceptionHandler(value = MailSendException.class)
   public ResponseEntity<MessageError> sendException(MailSendException ex) {
     if(ex.getMessage()!=null && ex.getMessage().contains("No recipient addresses")){
       return new ResponseEntity<>(MessageError.TO_ADDRESS_IS_NOT_SPECIFIED, HttpStatus.BAD_REQUEST);
-
     }
     return new ResponseEntity<>(MessageError.MAIL_CANNOT_BE_SENT, HttpStatus.BAD_REQUEST);
   }

@@ -42,23 +42,4 @@ public class InputSystemService {
     inputSystem.setEmail(email);
     return inputSystemRepository.save(inputSystem);
   }
-
-  public InputSystem updateInputSystemStatus(
-      String inputSystemId, InputSystem inputSystem, String email) {
-
-    InputSystem checkInputSystem = inputSystemRepository.findByInputSystemIdAndEmail(email, inputSystemId);
-
-    if (checkInputSystem == null) {
-      throw new InputSystemNotFoundException();
-    }
-    InputSystem checkDuplicate =
-        inputSystemRepository.findByInputSystemNameAndEmail(
-            email, inputSystem.getInputSystemName());
-    if (checkDuplicate != null) {
-      throw new InputSystemAlreadyExistsException();
-    }
-    checkInputSystem.setInputSystemName(inputSystem.getInputSystemName());
-
-    return inputSystemRepository.save(checkInputSystem);
-  }
 }
