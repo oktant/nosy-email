@@ -25,8 +25,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   }
 
   @ExceptionHandler(value = DataIntegrityViolationException.class)
-  public ResponseEntity<MessageError> inputSystemExistAlreadyExistsException(DataIntegrityViolationException e) {
-    System.out.println(e.getMessage());
+  public ResponseEntity<MessageError> objectAlreadyExistsException(DataIntegrityViolationException e) {
     return new ResponseEntity<>(MessageError.RESOURCE_ALREADY_EXISTS, HttpStatus.CONFLICT);
   }
 

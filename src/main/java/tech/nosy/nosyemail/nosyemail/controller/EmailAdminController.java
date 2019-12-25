@@ -118,7 +118,6 @@ public class EmailAdminController {
                     principal.getName())),
             HttpStatus.OK);
   }
-  /////////////////////////////////////////////////////FIXED
 
   @PostMapping(value = "/email/post")
   public ResponseEntity<EmailTemplateDto> emailPost(@RequestBody ReadyEmail readyEmail) {
