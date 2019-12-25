@@ -41,11 +41,10 @@ public class InputSystemServiceTest {
         inputSystemList.add(inputSystem);
     }
 
-
-//    @Test
-//    public void getListOfInputSystemsTest() {
-//        assertEquals(inputSystemList, inputSystemServiceMock.getListOfInputSystems(email));
-//    }
+    @Test
+    public void getListOfInputSystemsTest() {
+        assertEquals(new HashSet<InputSystemService>(), inputSystemServiceMock.getListOfInputSystems(email));
+    }
 
     @Test(expected = Test.None.class)
     public void deleteInputSystemTest() {
