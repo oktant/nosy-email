@@ -79,6 +79,7 @@ public class InputSystemServiceTest {
         InputSystem inputSystem=new InputSystem();
         inputSystem.setInputSystemId("inputSystemId");
         inputSystem.setInputSystemName("inputSystemName");
+        inputSystem.setEmail(email);
         when(inputSystemRepository.findByInputSystemIdAndEmail(email,inputSystem.getInputSystemId())).
                 thenReturn(null);
         inputSystemServiceMock.deleteInputSystem(inputSystem.getInputSystemId(), email);
@@ -132,7 +133,9 @@ public class InputSystemServiceTest {
         String email="test@nosy.tech";
         InputSystem inputSystem=new InputSystem();
         inputSystem.setInputSystemName("inputSystemName");
+        inputSystem.setEmail(email);
         when(inputSystemRepository.save(inputSystem)).thenReturn(inputSystem);
+        assertEquals(email, inputSystem.getEmail());
         Assert.assertEquals(inputSystem.getInputSystemName(),inputSystemServiceMock.saveInputSystem(inputSystem, email).getInputSystemName());
     }
 }
