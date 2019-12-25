@@ -100,5 +100,4 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
     return new ResponseEntity<>(MessageError.MAIL_CANNOT_BE_SENT, HttpStatus.BAD_REQUEST);
   }
-
 }
