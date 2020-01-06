@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -41,12 +42,29 @@ public class InputSystemServiceTest {
         inputSystem.setInputSystemName("inputSystemName");
         inputSystemList.add(inputSystem);
     }
-    //Fixme
 
-//    @Test
-//    public void getListOfInputSystemsTest() {
-//        assertEquals(new HashSet<InputSystemService>(), inputSystemServiceMock.getListOfInputSystems(email));
-//    }
+    @Test(expected = Test.None.class)
+    public void deleteInputSystem(){
+        when(inputSystemRepository.findInputSystemByEmailAndInputSystemName(anyString(),anyString())).thenReturn(
+                inputSystem);
+
+        inputSystemServiceMock.deleteInputSystem(inputSystem.getInputSystemId(), email);
+    }
+
+    @Test
+    public void getListOfInputSystemsTest() {
+        assertEquals(new HashSet<InputSystemService>(), inputSystemServiceMock.getListOfInputSystems("",email));
+    }
+    @Test
+    public void getListOfInputSystemsTestNotEmpty() {
+
+        when(inputSystemRepository.findInputSystemByEmailAndInputSystemName(anyString(), anyString()))
+                .thenReturn(inputSystem);
+        Set<InputSystem> actual= inputSystemServiceMock.getListOfInputSystems("dasda",email);
+        Set<InputSystem> expectedInputSystems=new HashSet<>();
+        expectedInputSystems.add(inputSystem);
+        assertEquals(expectedInputSystems.toArray()[0], actual.toArray()[0]);
+    }
 
     @Test(expected = InputSystemNotFoundException.class)
     public void deleteInputSystemTest() {
