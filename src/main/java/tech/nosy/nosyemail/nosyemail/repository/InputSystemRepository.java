@@ -13,7 +13,7 @@ import java.util.Set;
 @CrossOrigin
 public interface InputSystemRepository extends JpaRepository<InputSystem, String> {
 
-  InputSystem findInputSystemByEmailAndInputSystemName(String email, String input_system_name);
+  InputSystem findInputSystemByEmailAndInputSystemName(String email, String inputSystemName);
   void deleteInputSystemByEmailAndInputSystemName(String email, String name);
   Set<InputSystem> getInputSystemByEmail(String email);
 }
