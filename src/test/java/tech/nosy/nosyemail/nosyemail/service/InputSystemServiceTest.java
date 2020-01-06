@@ -7,13 +7,14 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import tech.nosy.nosyemail.nosyemail.exceptions.*;
+import tech.nosy.nosyemail.nosyemail.exceptions.InputSystemHasChildrenException;
+import tech.nosy.nosyemail.nosyemail.exceptions.InputSystemNameIsMandatoryException;
+import tech.nosy.nosyemail.nosyemail.exceptions.InputSystemNotFoundException;
 import tech.nosy.nosyemail.nosyemail.model.EmailTemplate;
 import tech.nosy.nosyemail.nosyemail.model.InputSystem;
 import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;

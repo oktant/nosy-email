@@ -7,9 +7,11 @@ import tech.nosy.nosyemail.nosyemail.dto.EmailTemplateDto;
 import tech.nosy.nosyemail.nosyemail.model.EmailFromProvider;
 import tech.nosy.nosyemail.nosyemail.model.EmailTemplate;
 import tech.nosy.nosyemail.nosyemail.model.InputSystem;
-import static org.junit.Assert.assertEquals;
+
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class EmailTemplateMapperTest {

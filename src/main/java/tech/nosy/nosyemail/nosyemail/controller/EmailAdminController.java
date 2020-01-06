@@ -43,7 +43,6 @@ public class EmailAdminController {
 
   @GetMapping(value = "/input-systems")
   public ResponseEntity<Set<InputSystemDto>> getInputSystems(@RequestParam(required = false) String name, Principal principal) {
-    System.out.println(name);
     return new ResponseEntity<>(
             InputSystemMapper.INSTANCE.toInputSystemDtoSet(inputSystemService.getListOfInputSystems(name, principal.getName())), HttpStatus.OK);
   }
