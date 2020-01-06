@@ -55,6 +55,7 @@ public class EmailAdminControllerTest {
     @Test
     public void newType() {
         InputSystemDto inputSystemDto=new InputSystemDto();
+        inputSystemDto.setName("dasda");
         Principal principal=mock(Principal.class);
         assertEquals(HttpStatus.CREATED, emailAdminController.newType(inputSystemDto,principal).getStatusCode());
 

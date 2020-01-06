@@ -43,8 +43,6 @@ public class InputSystemMapperTest {
     @Test
     public void toInputSystem(){
         //Fixme
-
-//        Assert.assertEquals(inputSystemDto.getId(),InputSystemMapper.INSTANCE.toInputSystem(inputSystemDto).getInputSystemId());
         Assert.assertEquals(inputSystemDto.getName(),InputSystemMapper.INSTANCE.toInputSystem(inputSystemDto).getInputSystemName());
     }
 }

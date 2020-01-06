@@ -50,7 +50,7 @@ public class InputSystem {
   }
 
   public void setInputSystemName(String inputSystemName) {
-    this.inputSystemName = inputSystemName.trim();
+    this.inputSystemName = inputSystemName;
   }
 
   public Set<EmailTemplate> getEmailTemplate() {

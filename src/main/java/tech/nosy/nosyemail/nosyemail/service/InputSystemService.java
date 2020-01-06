@@ -2,7 +2,9 @@ package tech.nosy.nosyemail.nosyemail.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.nosy.nosyemail.nosyemail.exceptions.InputSystemHasChildrenException;
 import tech.nosy.nosyemail.nosyemail.exceptions.InputSystemNameIsMandatoryException;
+import tech.nosy.nosyemail.nosyemail.exceptions.InputSystemNotFoundException;
 import tech.nosy.nosyemail.nosyemail.model.InputSystem;
 import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
 
@@ -30,6 +32,13 @@ public class InputSystemService {
   }
 
   public void deleteInputSystem(String inputSystemName, String email) {
+    InputSystem checkInputSystem = inputSystemRepository.findInputSystemByEmailAndInputSystemName(email, inputSystemName);
+    if (checkInputSystem == null) {
+      throw new InputSystemNotFoundException();
+    }
+    if (checkInputSystem.getEmailTemplate()!=null && !checkInputSystem.getEmailTemplate().isEmpty()) {
+      throw new InputSystemHasChildrenException();
+    }
     inputSystemRepository.deleteInputSystemByEmailAndInputSystemName(email, inputSystemName);
   }
 
