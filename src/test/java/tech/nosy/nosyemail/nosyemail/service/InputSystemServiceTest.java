@@ -113,15 +113,7 @@ public class InputSystemServiceTest {
         inputSystemServiceMock.saveInputSystem(inputSystem, email);
     }
 
-//    @Test(expected = InputSystemAlreadyExistsException.class)
-//    public void saveInputSystemWithValidInputSystemNameAlreadyExistsTest() {
-//        String email="test@nosy.tech";
-//        InputSystem inputSystem=new InputSystem();
-//        inputSystem.setInputSystemName("inputSystemName");
-//        when(inputSystemRepository.findByInputSystemNameAndEmail(email,inputSystem.getInputSystemName())).
-//                thenReturn(inputSystem);
-//        inputSystemServiceMock.saveInputSystem(inputSystem, email);
-//    }
+
 
     @Test
     public void saveInputSystemWithValidInputSystemNameButUserExistsTest() {
