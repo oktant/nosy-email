@@ -82,34 +82,34 @@ public class EmailTemplateServiceTest {
 
     @Before
     public void beforeEmailTemplate(){
-
         setVariables();
+    }
+
+    @Test
+    public void getEmailTemplateById() {
+        doReturn(emailTemplate).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem
+                (anyString(), any());
+        doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
+        Assert.assertEquals(emailTemplate.getEmailTemplateName(), emailTemplateServiceMock.getEmailTemplateByName
+                (inputSystem.getInputSystemName(), emailTemplate.getEmailTemplateName(), email).getEmailTemplateName()
+        );
+        String emailTemplateString="EmailTemplate{emailTemplateId='emailTemplateId', emailTemplateName='Test Email Template Name', emailTemplateFromAddress='testFromAddress@nosy.tech', emailTemplateFromProvider=DEFAULT, emailTemplateTo=[testTo@nosy.tech], emailTemplateCc=[testCc@nosy.tech], emailTemplateText='Test Message', emailTemplateRetryTimes=0, emailTemplateRetryPeriod=1, emailTemplatePriority=1, emailTemplateSubject='Test Subject'}";
+        assertEquals(emailTemplateString, emailTemplate.toString());
 
     }
-    //Fixme
-//    @Test
-//    public void getEmailTemplateById() {
-//        doReturn(emailTemplate).when(emailTemplateRepositoryMock).findEmailTemplatesByInputSystemIdAndEmailTemplateId
-//                (anyString(), anyString());
-//        doReturn(inputSystem).when(inputSystemRepository).findInputSystemByInputSystemIdAndEmail(anyString(), anyString());
-//        Assert.assertEquals(emailTemplateId, emailTemplateServiceMock.getEmailTemplateById(inputSystemId, emailTemplateId, email).getEmailTemplateId()
-//        );
-//        String emailTemplateString="EmailTemplate{emailTemplateId='emailTemplateId', emailTemplateName='Test Email Template Name', emailTemplateFromAddress='testFromAddress@nosy.tech', emailTemplateFromProvider=DEFAULT, emailTemplateTo=[testTo@nosy.tech], emailTemplateCc=[testCc@nosy.tech], emailTemplateText='Test Message', emailTemplateRetryTimes=0, emailTemplateRetryPeriod=1, emailTemplatePriority=1, emailTemplateSubject='Test Subject'}";
-//        assertEquals(emailTemplateString, emailTemplate.toString());
-//
-//    }
-    //Fixme
-//    @Test(expected= EmailTemplateNotFoundException.class)
-//    public void getEmailTemplateByIdError() {
-//        doReturn(null).when(emailTemplateRepositoryMock).findEmailTemplatesByInputSystemIdAndEmailTemplateId
-//                (anyString(), anyString());
-//        doReturn(inputSystem).when(inputSystemRepository).findInputSystemByInputSystemIdAndEmail(anyString(), anyString());
-//        Assert.assertEquals(emailTemplateId, emailTemplateServiceMock.getEmailTemplateById(inputSystemId, emailTemplateId, email).getEmailTemplateId()
-//        );
-//        String emailTemplateString="EmailTemplate{emailTemplateId='emailTemplateId', emailTemplateName='Test Email Template Name', fromAddress='testFromAddress@nosy.tech', emailTemplateTo=[testTo@nosy.tech], emailTemplateCc=[testCc@nosy.tech], text='Test Message', retryTimes=0, retryPeriod=1, priority=1, subject='Test Subject'}";
-//        assertEquals(emailTemplateString, emailTemplate.toString());
-//
-//    }
+
+    @Test(expected= EmailTemplateNotFoundException.class)
+    public void getEmailTemplateByIdError() {
+        doReturn(null).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem
+                (anyString(), any());
+        doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
+        Assert.assertEquals(emailTemplateId, emailTemplateServiceMock.getEmailTemplateByName(inputSystem.getInputSystemName(),
+                emailTemplate.getEmailTemplateName(), email).getEmailTemplateId()
+        );
+        String emailTemplateString="EmailTemplate{emailTemplateId='emailTemplateId', emailTemplateName='Test Email Template Name', fromAddress='testFromAddress@nosy.tech', emailTemplateTo=[testTo@nosy.tech], emailTemplateCc=[testCc@nosy.tech], text='Test Message', retryTimes=0, retryPeriod=1, priority=1, subject='Test Subject'}";
+        assertEquals(emailTemplateString, emailTemplate.toString());
+
+    }
 
     @Test
     public void newEmailTemplate() {
