@@ -56,6 +56,11 @@ public class InputSystemServiceTest {
         assertEquals(new HashSet<InputSystemService>(), inputSystemServiceMock.getListOfInputSystems("",email));
     }
     @Test
+    public void getListOfInputSystemsTestEmpty() {
+        assertEquals(new HashSet<InputSystemService>(), inputSystemServiceMock.getListOfInputSystems(null,email));
+    }
+
+    @Test
     public void getListOfInputSystemsTestNotEmpty() {
 
         when(inputSystemRepository.findInputSystemByEmailAndInputSystemName(anyString(), anyString()))
