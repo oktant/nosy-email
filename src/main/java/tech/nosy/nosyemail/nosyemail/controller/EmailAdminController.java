@@ -43,78 +43,67 @@ public class EmailAdminController {
   }
 
   @GetMapping(value = "/input-systems")
-  public ResponseEntity<Set<InputSystemDto>> getInputSystems(Principal principal) {
+  public ResponseEntity<Set<InputSystemDto>> getInputSystems(@RequestParam(required = false) String name, Principal principal) {
+    System.out.println(name);
     return new ResponseEntity<>(
-            InputSystemMapper.INSTANCE.toInputSystemDtoSet(inputSystemService.getListOfInputSystems(principal.getName())), HttpStatus.OK);
+            InputSystemMapper.INSTANCE.toInputSystemDtoSet(inputSystemService.getListOfInputSystems(name, principal.getName())), HttpStatus.OK);
   }
 
-  @DeleteMapping(value = "/input-systems/{inputSystemId}")
+  @DeleteMapping(value = "/input-systems/{inputSystemName}")
   public ResponseEntity<String> deleteInputSystem(
-          @PathVariable String inputSystemId, Principal principal) {
-    inputSystemService.deleteInputSystem(inputSystemId, principal.getName());
+          @PathVariable String inputSystemName, Principal principal) {
+    inputSystemService.deleteInputSystem(inputSystemName, principal.getName());
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
-  @PostMapping(value = "/input-systems/{inputSystemId}/email-templates")
+  @PostMapping(value = "/input-systems/{inputSystemName}/email-templates")
   public ResponseEntity<EmailTemplateDto> newEmailTemplate(Principal principal,
-                                                           @PathVariable String inputSystemId,
+                                                           @PathVariable String inputSystemName,
                                                            @RequestBody EmailTemplateDto emailTemplateDto
   ) {
     return new ResponseEntity<>( EmailTemplateMapper.INSTANCE.toEmailTemplateDto(
             emailTemplateService.newEmailTemplate(
                     EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto),
-                    inputSystemId,
+                    inputSystemName,
                     principal.getName())),
             HttpStatus.CREATED);
   }
-  @PostMapping(value = "/input-systems/{inputSystemId}/email-templates/{emailTemplateId}/post")
-  public ResponseEntity<EmailTemplateDto> emailTemplatePost(
-          @PathVariable String inputSystemId,
-          @PathVariable String emailTemplateId,
-          @RequestBody EmailProviderProperties emailProviderProperties,
-          Principal principal) {
-
-    return new ResponseEntity<>(
-            EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplateService.postEmailTemplate(
-                    inputSystemId, emailTemplateId, emailProviderProperties, principal.getName())),
-            HttpStatus.OK);
-  }
 
   @GetMapping(value = "/email-providers")
-  public ResponseEntity<List<String>> getEmailAllProviders(Principal principal) {
+  public ResponseEntity<List<String>> getEmailAllProviders() {
     return new ResponseEntity<>(emailTemplateService.getAllEmailProviders(), HttpStatus.OK);
   }
 
-  @GetMapping(value = "/input-systems/{inputSystemId}/email-templates/{emailTemplateId}")
-  public ResponseEntity<EmailTemplate> getEmailTemplateByInputSystemAndEmailTemplateId(
-          @PathVariable String inputSystemId,
-          @PathVariable String emailTemplateId,
+  @GetMapping(value = "/input-systems/{inputSystemName}/email-templates/{emailTemplateName}")
+  public ResponseEntity<EmailTemplateDto> getEmailTemplateByInputSystemAndEmailTemplateName(
+          @PathVariable String inputSystemName,
+          @PathVariable String emailTemplateName,
           Principal principal) {
-    return new ResponseEntity<>(
-            emailTemplateService.getEmailTemplateById(
-                    emailTemplateId, inputSystemId, principal.getName()),
+    return new ResponseEntity<>(EmailTemplateMapper.INSTANCE.toEmailTemplateDto(
+            emailTemplateService.getEmailTemplateByName(
+                    emailTemplateName, inputSystemName, principal.getName())),
             HttpStatus.OK);
   }
 
-  @GetMapping(value = "/input-systems/{inputSystemId}/email-templates")
+  @GetMapping(value = "/input-systems/{inputSystemName}/email-templates")
   public ResponseEntity<List<EmailTemplateDto>> getEmailTemplates(
-          @PathVariable String inputSystemId, Principal principal) {
+          @PathVariable String inputSystemName, Principal principal) {
     return new ResponseEntity<>(EmailTemplateMapper.INSTANCE.toEmailTemplateDtoList(
-            emailTemplateService.getListOfEmailTemplates(inputSystemId, principal.getName())),
+            emailTemplateService.getListOfEmailTemplates(inputSystemName, principal.getName())),
             HttpStatus.OK);
   }
 
-  @PutMapping(value = "/input-systems/{inputSystemId}/email-templates/{emailTemplateId}")
+  @PutMapping(value = "/input-systems/{inputSystemName}/email-templates/{emailTemplateName}")
   public ResponseEntity<EmailTemplateDto> updateEmailTemplate(
-          @PathVariable String inputSystemId,
-          @PathVariable String emailTemplateId,
+          @PathVariable String inputSystemName,
+          @PathVariable String emailTemplateName,
           @RequestBody EmailTemplateDto emailTemplateDto,
           Principal principal) {
     return new ResponseEntity<>(  EmailTemplateMapper.INSTANCE.toEmailTemplateDto(
             emailTemplateService.updateEmailTemplate(
                     EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto),
-                    inputSystemId,
-                    emailTemplateId,
+                    inputSystemName,
+                    emailTemplateName,
                     principal.getName())),
             HttpStatus.OK);
   }
@@ -132,5 +121,18 @@ public class EmailAdminController {
       Principal principal) {
     emailTemplateService.deleteEmailTemplate(inputSystemId, emailTemplateId, principal.getName());
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
+
+  @PostMapping(value = "/input-systems/{inputSystemName}/email-templates/{emailTemplateName}/post")
+  public ResponseEntity<EmailTemplateDto> emailTemplatePost(
+          @PathVariable String inputSystemName,
+          @PathVariable String emailTemplateName,
+          @RequestBody EmailProviderProperties emailProviderProperties,
+          Principal principal) {
+
+    return new ResponseEntity<>(
+            EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplateService.postEmailTemplate(
+                    inputSystemName, emailTemplateName, emailProviderProperties, principal.getName())),
+            HttpStatus.OK);
   }
 }

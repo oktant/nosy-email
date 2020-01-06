@@ -36,12 +36,12 @@ public class EmailTemplateService {
     this.emailServiceListener = emailServiceListener;
   }
 
-  public EmailTemplate getEmailTemplateById(
-      String emailTemplateId, String inputSystemId, String email) {
-    getInputSystemForTemplate(inputSystemId, email);
+  public EmailTemplate getEmailTemplateByName(
+      String emailTemplateName, String inputSystemName, String email) {
+    InputSystem inputSystem=inputSystemRepository.findInputSystemByEmailAndInputSystemName(email, inputSystemName);
     EmailTemplate emailTemplate =
-        emailTemplateRepository.findEmailTemplatesByInputSystemIdAndEmailTemplateId(
-            inputSystemId, emailTemplateId);
+        emailTemplateRepository.findEmailTemplateByEmailTemplateNameAndInputSystem(
+                emailTemplateName, inputSystem);
     if (emailTemplate == null) {
       throw new EmailTemplateNotFoundException();
     }
@@ -49,8 +49,8 @@ public class EmailTemplateService {
     return emailTemplate;
   }
 
-  private InputSystem getInputSystemForTemplate(String inputSystemId, String email) {
-    InputSystem inputSystem = inputSystemRepository.findByInputSystemIdAndEmail(email, inputSystemId);
+  private InputSystem getInputSystemForTemplate(String inputSystemName, String email) {
+    InputSystem inputSystem = inputSystemRepository.findInputSystemByEmailAndInputSystemName(email, inputSystemName);
     if (inputSystem == null) {
       throw new InputSystemNotFoundException();
     }
@@ -58,17 +58,15 @@ public class EmailTemplateService {
   }
 
   public EmailTemplate newEmailTemplate(
-      EmailTemplate emailTemplate, String inputSystemId, String email) {
-    InputSystem inputSystem = getInputSystemForTemplate(inputSystemId, email);
-    if (emailTemplateRepository.findEmailTemplateByEmailTemplateNameAndInputSystemId(
-            emailTemplate.getEmailTemplateName(), inputSystemId)
+      EmailTemplate emailTemplate, String inputSystemName, String email) {
+    InputSystem inputSystem = getInputSystemForTemplate(inputSystemName, email);
+    if (emailTemplateRepository.findEmailTemplateByEmailTemplateNameAndInputSystem(
+            emailTemplate.getEmailTemplateName(), inputSystem)
         != null) {
       throw new EmailTemplateExistException();
     }
-
     emailTemplate.setInputSystem(inputSystem);
     emailTemplateRepository.save(emailTemplate);
-
     return emailTemplate;
   }
 
@@ -78,29 +76,27 @@ public class EmailTemplateService {
         .collect(Collectors.toList());
   }
 
-  public void deleteEmailTemplate(String inputSystemId, String emailTemplateId, String email) {
-    EmailTemplate emailTemplate = getEmailTemplateById(emailTemplateId, inputSystemId, email);
+  public void deleteEmailTemplate(String inputSystemName, String emailTemplateName, String email) {
+    EmailTemplate emailTemplate = getEmailTemplateByName(emailTemplateName, inputSystemName, email);
     emailTemplateRepository.deleteById(emailTemplate.getEmailTemplateId());
   }
 
-  public List<EmailTemplate> getListOfEmailTemplates(String inputSystemId, String email) {
-
-    InputSystem inputSystem = inputSystemRepository.findByInputSystemIdAndEmail(email, inputSystemId);
+  public List<EmailTemplate> getListOfEmailTemplates(String inputSystemName, String email) {
+    InputSystem inputSystem = inputSystemRepository.findInputSystemByEmailAndInputSystemName(email, inputSystemName);
     if (inputSystem == null) {
       throw new InputSystemNotFoundException();
     }
-
-    return emailTemplateRepository.findEmailTemplatesByInputSystemId(inputSystemId);
+    return emailTemplateRepository.findEmailTemplatesByInputSystem(inputSystem);
   }
 
   public EmailTemplate postEmailTemplate(
-      String inputSystemId,
-      String emailTemplateId,
+      String inputSystemName,
+      String emailTemplateName,
       EmailProviderProperties emailProviderProperties,
       String email) {
 
     ReadyEmail readyEmailCurrent = new ReadyEmail();
-    EmailTemplate emailTemplate=getEmailTemplateById(emailTemplateId, inputSystemId, email);
+    EmailTemplate emailTemplate=getEmailTemplateByName(emailTemplateName, inputSystemName, email);
     if(emailProviderProperties!=null && emailProviderProperties.getTo()!=null && !emailProviderProperties.getTo().isEmpty()){
       if(emailTemplate.getEmailTemplateTo()==null){
         emailTemplate.setEmailTemplateTo(new HashSet<String>());
@@ -147,19 +143,20 @@ public class EmailTemplateService {
   }
 
   public EmailTemplate updateEmailTemplate(
-      EmailTemplate emailTemplate, String inputSystemId, String emailTemplateId, String email) {
+      EmailTemplate emailTemplate, String inputSystemName, String emailTemplateName, String email) {
 
     EmailTemplate currentEmailTemplate =
-        getEmailTemplateById(emailTemplateId, inputSystemId, email);
+        getEmailTemplateByName(emailTemplateName, inputSystemName, email);
 
     if (emailTemplate==null ) {
 
       throw new EmailTemplateNotFoundException();
     }
     if (emailTemplate.getEmailTemplateName() == null
-        || emailTemplate.getEmailTemplateName().isEmpty() ||  (!currentEmailTemplate.getEmailTemplateName().equals(emailTemplate.getEmailTemplateName())
-            && emailTemplateRepository.findEmailTemplateByEmailTemplateNameAndInputSystemId(
-            emailTemplate.getEmailTemplateName(), inputSystemId)
+        || emailTemplate.getEmailTemplateName().isEmpty() ||  (
+                !currentEmailTemplate.getEmailTemplateName().equals(emailTemplate.getEmailTemplateName())
+            && emailTemplateRepository.findEmailTemplateByEmailTemplateNameAndInputSystem(
+            emailTemplate.getEmailTemplateName(), emailTemplate.getInputSystem())
             != null)) {
       throw new EmailTemplateNameInvalidException();
     }

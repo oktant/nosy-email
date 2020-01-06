@@ -2,12 +2,11 @@ package tech.nosy.nosyemail.nosyemail.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tech.nosy.nosyemail.nosyemail.exceptions.InputSystemHasChildrenException;
 import tech.nosy.nosyemail.nosyemail.exceptions.InputSystemNameIsMandatoryException;
-import tech.nosy.nosyemail.nosyemail.exceptions.InputSystemNotFoundException;
 import tech.nosy.nosyemail.nosyemail.model.InputSystem;
 import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -21,19 +20,17 @@ public class InputSystemService {
     this.inputSystemRepository = inputSystemRepository;
   }
 
-  public Set<InputSystem> getListOfInputSystems(String username) {
+  public Set<InputSystem> getListOfInputSystems(String name, String username) {
+    if(name!=null && !name.isEmpty()){
+      Set<InputSystem> inputSystems=new HashSet<>();
+      inputSystems.add(inputSystemRepository.findInputSystemByEmailAndInputSystemName(username, name));
+      return inputSystems;
+    }
     return inputSystemRepository.getInputSystemByEmail(username);
   }
 
-  public void deleteInputSystem(String inputSystemId, String email) {
-    InputSystem checkInputSystem = inputSystemRepository.findByInputSystemIdAndEmail(email, inputSystemId);
-    if (checkInputSystem == null) {
-      throw new InputSystemNotFoundException();
-    }
-    if (checkInputSystem.getEmailTemplate()!=null && !checkInputSystem.getEmailTemplate().isEmpty()) {
-      throw new InputSystemHasChildrenException();
-    }
-    inputSystemRepository.deleteById(inputSystemId);
+  public void deleteInputSystem(String inputSystemName, String email) {
+    inputSystemRepository.deleteInputSystemByEmailAndInputSystemName(email, inputSystemName);
   }
 
   public InputSystem saveInputSystem(InputSystem inputSystem, String email) {

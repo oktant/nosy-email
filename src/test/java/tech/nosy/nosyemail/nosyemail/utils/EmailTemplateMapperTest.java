@@ -57,7 +57,6 @@ public class EmailTemplateMapperTest {
 
         assertEquals(emailTemplate.getEmailTemplateFromProvider(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getFromProvider());
         assertEquals(emailTemplate.getEmailTemplateCc(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getCc());
-        assertEquals(emailTemplate.getEmailTemplateId(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getId());
         assertEquals(emailTemplate.getEmailTemplateTo(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getTo());
         assertEquals(emailTemplate.getEmailTemplateName(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getName());
         assertEquals(emailTemplate.getEmailTemplateSubject(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getSubject());
@@ -75,7 +74,6 @@ public class EmailTemplateMapperTest {
     public void toEmailTemplate(){
         assertEquals(emailTemplateDto.getFromProvider(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateFromProvider());
         assertEquals(emailTemplateDto.getCc(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateCc());
-        assertEquals(emailTemplateDto.getId(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateId());
         assertEquals(emailTemplateDto.getTo(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateTo());
         assertEquals(emailTemplateDto.getName(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateName());
         assertEquals(emailTemplateDto.getFromAddress(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateFromAddress());

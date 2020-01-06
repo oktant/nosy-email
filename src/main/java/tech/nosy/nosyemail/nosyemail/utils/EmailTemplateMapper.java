@@ -12,7 +12,6 @@ import java.util.List;
 public abstract class EmailTemplateMapper {
     public static final EmailTemplateMapper INSTANCE = Mappers.getMapper(EmailTemplateMapper.class);
 
-    @Mapping(source = "emailTemplateId", target = "id")
     @Mapping(source = "emailTemplateName", target = "name")
     @Mapping(source = "emailTemplateFromAddress", target = "fromAddress")
     @Mapping(source = "emailTemplateTo", target = "to")
@@ -28,7 +27,6 @@ public abstract class EmailTemplateMapper {
 
     public abstract List<EmailTemplateDto> toEmailTemplateDtoList(List<EmailTemplate> emailTemplateList);
 
-    @Mapping(source = "id", target = "emailTemplateId")
     @Mapping(source = "name", target = "emailTemplateName")
     @Mapping(source = "fromAddress", target = "emailTemplateFromAddress")
     @Mapping(source = "to", target = "emailTemplateTo")

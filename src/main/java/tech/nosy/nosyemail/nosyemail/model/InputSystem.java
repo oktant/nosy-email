@@ -1,9 +1,9 @@
 package tech.nosy.nosyemail.nosyemail.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -17,6 +17,7 @@ public class InputSystem {
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Id
+  @JsonIgnore
   private String inputSystemId;
 
   @NotNull private String inputSystemName;
@@ -49,7 +50,7 @@ public class InputSystem {
   }
 
   public void setInputSystemName(String inputSystemName) {
-    this.inputSystemName = inputSystemName;
+    this.inputSystemName = inputSystemName.trim();
   }
 
   public Set<EmailTemplate> getEmailTemplate() {

@@ -11,7 +11,6 @@ import java.util.Set;
 
 
 public class EmailTemplateDto {
-  @NotNull private String id;
 
   @NotNull private String name;
   @NotNull @Email private String fromAddress;
@@ -33,13 +32,6 @@ public class EmailTemplateDto {
   @JsonIgnore
   @NotNull private InputSystem inputSystem;
 
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
 
   public String getName() {
     return name;

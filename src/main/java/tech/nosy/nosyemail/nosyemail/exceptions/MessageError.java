@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum MessageError {
   NOT_AUTHENTICATED("You are not authenticated. Please login first"),
   NO_INPUT_SYSTEM_FOUND(
-      "No Input System with specified Id was found. Please create it before updating"),
+      "No Input System with specified name was found. Please create it before updating"),
   NO_EMAIL_TEMPLATE_FOUND(
       "No Template was found with specified request. Please correct your request"),
   EMAIL_TEMPLATE_EXIST("Email Template already exists. Please try another name"),

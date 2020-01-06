@@ -15,13 +15,8 @@ import java.util.Set;
 @CrossOrigin
 public interface InputSystemRepository extends JpaRepository<InputSystem, String> {
 
-  @Query("from InputSystem where email=:email and " + "input_system_name=:inputSystemName")
-  InputSystem findByInputSystemNameAndEmail(
-          @Param("email") String email, @Param("inputSystemName") String inputSystemName);
-
-  @Query("from InputSystem where email=:email and " + "input_system_id=:inputSystemId")
-  InputSystem findByInputSystemIdAndEmail(
-          @Param("email") String email, @Param("inputSystemId") String inputSystemId);
-
+  InputSystem findInputSystemByEmailAndInputSystemName(String email, String input_system_name);
+  InputSystem findInputSystemByInputSystemIdAndEmail(String inputSystemId, String email);
+  void deleteInputSystemByEmailAndInputSystemName(String email, String name);
   Set<InputSystem> getInputSystemByEmail(String email);
 }
