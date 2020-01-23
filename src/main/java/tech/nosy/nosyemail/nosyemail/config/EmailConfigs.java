@@ -16,7 +16,9 @@ public class EmailConfigs {
     JavaMailSenderImpl yandex = new JavaMailSenderImpl();
     yandex.setHost("smtp.yandex.ru");
     yandex.setPort(465);
-    yandex.setJavaMailProperties(getProperties());
+    Properties javaMailProperties=getProperties();
+    javaMailProperties.put("smtp.ssl.enable", "true");
+    yandex.setJavaMailProperties(javaMailProperties);
     return yandex;
   }
 
