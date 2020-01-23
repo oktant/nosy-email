@@ -16,9 +16,7 @@ public class EmailConfigs {
     JavaMailSenderImpl yandex = new JavaMailSenderImpl();
     yandex.setHost("smtp.yandex.ru");
     yandex.setPort(465);
-    Properties javaMailProperties=getProperties();
-    javaMailProperties.put("smtp.ssl.enable", "true");
-    yandex.setJavaMailProperties(javaMailProperties);
+    yandex.setJavaMailProperties(getProperties());
     return yandex;
   }
 
@@ -28,6 +26,9 @@ public class EmailConfigs {
     javaMailProperties.put("mail.debug", "true");
     javaMailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
     javaMailProperties.put("mail.smtp.ssl.checkserveridentity", true);
+    javaMailProperties.put("smtp.starttls.enable", "true");
+    javaMailProperties.put("smtp.starttls.required", "true");
+    javaMailProperties.put("smtp.ssl.enable", "true");
     return javaMailProperties;
   }
 
@@ -36,11 +37,7 @@ public class EmailConfigs {
     JavaMailSenderImpl gmail = new JavaMailSenderImpl();
     gmail.setHost("smtp.gmail.com");
     gmail.setPort(465);
-    Properties javaMailProperties = getProperties();
-    javaMailProperties.put("smtp.starttls.enable", "true");
-    javaMailProperties.put("smtp.starttls.required", "true");
-    javaMailProperties.put("smtp.ssl.enable", "true");
-    gmail.setJavaMailProperties(javaMailProperties);
+    gmail.setJavaMailProperties(getProperties());
     return gmail;
   }
 
