@@ -112,12 +112,12 @@ public class EmailAdminController {
               EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplateService.postEmail(readyEmail)), HttpStatus.OK);
   }
 
-  @DeleteMapping(value = "/input-systems/{inputSystemId}/email-templates/{emailTemplateId}")
+  @DeleteMapping(value = "/input-systems/{inputSystemName}/email-templates/{emailTemplateName}")
   public ResponseEntity<String> deleteEmailTemplate(
-      @PathVariable String inputSystemId,
-      @PathVariable String emailTemplateId,
+      @PathVariable String inputSystemName,
+      @PathVariable String emailTemplateName,
       Principal principal) {
-    emailTemplateService.deleteEmailTemplate(inputSystemId, emailTemplateId, principal.getName());
+    emailTemplateService.deleteEmailTemplate(inputSystemName, emailTemplateName, principal.getName());
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
