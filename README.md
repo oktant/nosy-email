@@ -6,4 +6,4 @@
 
 # nosy
 
-The project intend to give a full comprehensive solution for companies as a notification service. NoSy is a fully open-source project.
+The project intends to give a full comprehensive solution for companies as a notification service. NoSy is a fully open-source project.
