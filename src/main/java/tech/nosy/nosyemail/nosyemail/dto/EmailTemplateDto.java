@@ -18,9 +18,9 @@ public class EmailTemplateDto {
 
   @NotNull private EmailFromProvider fromProvider;
 
-  private Set<@NotEmpty @Email String> to;
+  private Set<@Email String> to;
 
-  private Set<@NotEmpty @Email String> cc;
+  private Set<@Email String> cc;
 
   @NotNull private String text;
 
@@ -30,7 +30,7 @@ public class EmailTemplateDto {
 
   private int priority;
   @JsonIgnore
-  @NotNull private InputSystem inputSystem;
+  private InputSystem inputSystem;
 
 
   public String getName() {

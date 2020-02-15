@@ -10,6 +10,15 @@ public class EmailProviderProperties {
   private String password;
   private List<PlaceHolder> placeholders;
   private List<String> to;
+  private String profile;
+
+  public String getProfile() {
+    return profile;
+  }
+
+  public void setProfile(String profile) {
+    this.profile = profile;
+  }
 
   public List<String> getTo() {
     return to;

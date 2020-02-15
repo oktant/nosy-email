@@ -19,7 +19,6 @@ public enum MessageError {
       "Input System cannot be deleted. Because it has dependent children. Please delete Email Templates associated with this InputSystem to be able to delete it"),
   INPUT_SYSTEM_NAME_IS_MANDATORY("Input System Name is mandatory field"),
   ACCESS_FORBIDDEN_EXCEPTION("Authorization server is not responding, please try again later"),
-  USER_ALREADY_EXISTS_EXCEPTION("User already exists. Please try another email"),
   INVALID_USERNAME_OR_PASSWORD("Invalid username or password"),
   EMAIL_FIELDS_SHOULD_BE_WELL_FORMED("Email fields(Email To, Email From and Email CC) should be well-formed."),
   NOT_ALL_MANDATORY_FIELDS_SPECIFIED("Please specify all Mandatory fields."),
@@ -31,7 +30,9 @@ public enum MessageError {
   FEED_NOT_SUBSCRIBED_TO("Email Feed does not have an active subscription with the specified email."),
   RESOURCE_ALREADY_EXISTS("Resource already exists in the system please."),
   TO_ADDRESS_IS_NOT_SPECIFIED("No recipient address has been specified"),
-  MAIL_CANNOT_BE_SENT("Cannot send email, check the payload");
+  MAIL_CANNOT_BE_SENT("Cannot send email, check the payload"),
+  EMAIL_CREDENTIALS_EXISTS("Email Credentials already exist"),
+  EMAIL_CREDENTIALS_NOT_EXISTS("Email Credential doesn't exist");
 
 
   private String message;
