@@ -4,16 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.nosy.nosyemail.nosyemail.dto.EmailCredentialDto;
+import tech.nosy.nosyemail.nosyemail.dto.EmailConfigDto;
 import tech.nosy.nosyemail.nosyemail.dto.EmailTemplateDto;
 import tech.nosy.nosyemail.nosyemail.dto.InputSystemDto;
-import tech.nosy.nosyemail.nosyemail.model.EmailCredential;
+import tech.nosy.nosyemail.nosyemail.model.EmailConfig;
 import tech.nosy.nosyemail.nosyemail.model.EmailProviderProperties;
+import tech.nosy.nosyemail.nosyemail.model.EmailServerProperty;
 import tech.nosy.nosyemail.nosyemail.model.ReadyEmail;
-import tech.nosy.nosyemail.nosyemail.service.EmailCredentialService;
+import tech.nosy.nosyemail.nosyemail.service.EmailConfigService;
 import tech.nosy.nosyemail.nosyemail.service.EmailTemplateService;
 import tech.nosy.nosyemail.nosyemail.service.InputSystemService;
-import tech.nosy.nosyemail.nosyemail.utils.EmailCredentialsMapper;
+import tech.nosy.nosyemail.nosyemail.utils.EmailConfigMapper;
+import tech.nosy.nosyemail.nosyemail.utils.EmailServerPropertyMapper;
 import tech.nosy.nosyemail.nosyemail.utils.EmailTemplateMapper;
 import tech.nosy.nosyemail.nosyemail.utils.InputSystemMapper;
 
@@ -29,17 +31,17 @@ public class EmailAdminController {
 
     private EmailTemplateService emailTemplateService;
     private InputSystemService inputSystemService;
-    private EmailCredentialService emailCredentialService;
+    private EmailConfigService emailConfigService;
 
     @Autowired
     public EmailAdminController(
             EmailTemplateService emailTemplateService,
             InputSystemService inputSystemService,
-            EmailCredentialService emailCredentialService
+            EmailConfigService emailConfigService
     ) {
         this.emailTemplateService = emailTemplateService;
         this.inputSystemService = inputSystemService;
-        this.emailCredentialService = emailCredentialService;
+        this.emailConfigService = emailConfigService;
     }
 
     @PostMapping(value = "/input-systems")
@@ -141,31 +143,31 @@ public class EmailAdminController {
                 HttpStatus.OK);
     }
 
-    @PostMapping(value = "/email-credentials")
-    public ResponseEntity<EmailCredentialDto> createEmailCredentials(@Valid @RequestBody
-            EmailCredentialDto emailCredentialDto, Principal principal) {
 
-        return new ResponseEntity<>(EmailCredentialsMapper.INSTANCE.
-                toEmailCredentialDto(emailCredentialService.saveEmailCredentials(
-                        EmailCredentialsMapper.INSTANCE.toEmailCredential(emailCredentialDto),
-                        principal.getName())), HttpStatus.OK);
+    @PostMapping(value="/email-configs")
+    public ResponseEntity<EmailConfigDto> postEmailConfig(Principal principal, @RequestBody EmailConfigDto emailConfigDto ){
+        return  new ResponseEntity<>(EmailConfigMapper.INSTANCE.toEmailConfigDto(emailConfigService.
+                saveEmailConfig(principal.getName(), EmailConfigMapper.INSTANCE.toEmailConfig(emailConfigDto)))
+                , HttpStatus.CREATED);
 
     }
-
-    @GetMapping(value = "/email-credentials")
-    public ResponseEntity<Set<EmailCredentialDto>> getEmailCredentials(Principal principal) {
-        return new ResponseEntity<>(EmailCredentialsMapper.INSTANCE.
-                toEmailCredentialsDtoSet
-                        (emailCredentialService.getEmailCredentials(principal.getName())), HttpStatus.OK);
-
+    @GetMapping(value="/email-configs")
+    public ResponseEntity<List<EmailConfigDto>> getConfigs(Principal principal){
+        return new ResponseEntity<>(EmailConfigMapper.INSTANCE.toEmailConfigDtoList
+                (emailConfigService.getConfigs(principal.getName())), HttpStatus.OK);
+    }
+    @GetMapping(value="/email-configs/{name}")
+    public ResponseEntity<EmailConfigDto> getConfig(Principal principal,
+                                                    @PathVariable("name") String name){
+        return new ResponseEntity<>(EmailConfigMapper.INSTANCE.toEmailConfigDto
+                (emailConfigService.getConfig(principal.getName(), name)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/email-credentials/{profileName}")
-    public ResponseEntity<EmailCredentialDto> getEmailCredential(@PathVariable String profileName, Principal principal) {
-        return new ResponseEntity<>(EmailCredentialsMapper.INSTANCE.
-                toEmailCredentialDto
-                        (emailCredentialService.getEmailCredential(profileName, principal.getName())),
-                HttpStatus.OK);
-    }
+    @PutMapping(value="/email-configs/{name}")
+    public ResponseEntity<EmailConfigDto> updateConfig(Principal principal,
+                                                    @PathVariable("name") String name, @RequestBody EmailConfigDto emailConfigDto){
 
+        return new ResponseEntity<>(EmailConfigMapper.INSTANCE.toEmailConfigDto
+                (emailConfigService.updateConfig(principal.getName(),name, EmailConfigMapper.INSTANCE.toEmailConfig(emailConfigDto))), HttpStatus.OK);
+    }
 }

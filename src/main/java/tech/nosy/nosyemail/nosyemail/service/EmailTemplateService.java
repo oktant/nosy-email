@@ -5,12 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tech.nosy.nosyemail.nosyemail.exceptions.*;
 import tech.nosy.nosyemail.nosyemail.model.*;
-import tech.nosy.nosyemail.nosyemail.repository.EmailCredentialRepository;
 import tech.nosy.nosyemail.nosyemail.repository.EmailTemplateRepository;
-import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
-
-import javax.validation.constraints.Email;
-import java.util.HashSet;
+import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,7 +18,6 @@ public class EmailTemplateService {
   private InputSystemRepository inputSystemRepository;
   private ReadyEmail readyEmail;
   private EmailService emailServiceListener;
-  private EmailCredentialRepository emailCredentialRepository;
 
   @Value("${default.nosy.from.address}")
   private String defaultNosyFromAddress;
@@ -32,13 +27,11 @@ public class EmailTemplateService {
           EmailTemplateRepository emailTemplateRepository,
           InputSystemRepository inputSystemRepository,
           ReadyEmail readyEmail,
-          EmailService emailServiceListener,
-          EmailCredentialRepository emailCredentialRepository) {
+          EmailService emailServiceListener) {
     this.emailTemplateRepository = emailTemplateRepository;
     this.inputSystemRepository = inputSystemRepository;
     this.readyEmail = readyEmail;
     this.emailServiceListener = emailServiceListener;
-    this.emailCredentialRepository=emailCredentialRepository;
   }
 
   public EmailTemplate getEmailTemplateByName(
@@ -102,8 +95,7 @@ public class EmailTemplateService {
 
     ReadyEmail readyEmailCurrent = new ReadyEmail();
     EmailTemplate emailTemplate=getEmailTemplateByName(emailTemplateName, inputSystemName, email);
-    if(emailProviderProperties!=null && emailProviderProperties.getTo()!=null && !emailProviderProperties
-            .getTo().isEmpty()){
+    if(emailProviderProperties!=null && emailProviderProperties.getTo()!=null && !emailProviderProperties.getTo().isEmpty()){
       if(emailTemplate.getEmailTemplateTo()==null){
         emailTemplate.setEmailTemplateTo(new HashSet<String>());
       }
@@ -111,28 +103,14 @@ public class EmailTemplateService {
     }
 
     readyEmailCurrent.setEmailTemplate(emailTemplate);
-    readyEmailCurrent.setEmailProviderProperties(retrieveProfileFromEmailCredentials(emailProviderProperties, email));
+    readyEmailCurrent.setEmailProviderProperties(emailProviderProperties);
 
     return postEmail(readyEmailCurrent);
   }
 
-  public EmailProviderProperties retrieveProfileFromEmailCredentials(EmailProviderProperties providerProperties, String email){
-    if (providerProperties!=null && providerProperties.getProfile()!=null
-            && !providerProperties.getProfile().isEmpty()){
-      EmailCredential emailCredential=emailCredentialRepository.findAllByEmailCredentialProfileNameAndEmail(providerProperties.getProfile(), email);
-      if (emailCredential!=null){
-        providerProperties.setUsername(emailCredential.getEmailCredentialUsername());
-          providerProperties.setPassword(emailCredential.getEmailCredentialPassword());
-      }
-    }
-    return providerProperties;
-  }
-
-  public EmailTemplate postEmail(ReadyEmail readyEmail) {
-    EmailProviderProperties emailProviderProperties = readyEmail.getEmailProviderProperties();
-    EmailTemplate emailTemplate = readyEmail.getEmailTemplate();
-
-
+  public EmailTemplate postEmail(ReadyEmail readyEmailDto) {
+    EmailProviderProperties emailProviderProperties = readyEmailDto.getEmailProviderProperties();
+    EmailTemplate emailTemplate = readyEmailDto.getEmailTemplate();
 
     boolean auth =
             (emailProviderProperties.getUsername() == null
