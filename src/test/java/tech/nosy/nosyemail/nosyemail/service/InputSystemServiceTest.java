@@ -50,14 +50,25 @@ public class InputSystemServiceTest {
 
         inputSystemServiceMock.deleteInputSystem(inputSystem.getInputSystemId(), email);
     }
+    @Test(expected = InputSystemNotFoundException.class)
+    public void deleteInputSystemTest() {
+
+        String email="test@nosy.tech";
+        InputSystem inputSystem=new InputSystem();
+        inputSystem.setInputSystemId("inputSystemId");
+        inputSystem.setInputSystemName("inputSystemName");
+        inputSystemServiceMock.deleteInputSystem(inputSystem.getInputSystemId(), email);
+    }
 
     @Test
     public void getListOfInputSystemsTest() {
-        assertEquals(new HashSet<InputSystemService>(), inputSystemServiceMock.getListOfInputSystems("",email));
+        assertEquals(new HashSet<InputSystemService>(),
+                inputSystemServiceMock.getListOfInputSystems("",email));
     }
     @Test
     public void getListOfInputSystemsTestEmpty() {
-        assertEquals(new HashSet<InputSystemService>(), inputSystemServiceMock.getListOfInputSystems(null,email));
+        assertEquals(new HashSet<InputSystemService>(),
+                inputSystemServiceMock.getListOfInputSystems(null,email));
     }
 
     @Test
@@ -71,15 +82,7 @@ public class InputSystemServiceTest {
         assertEquals(expectedInputSystems.toArray()[0], actual.toArray()[0]);
     }
 
-    @Test(expected = InputSystemNotFoundException.class)
-    public void deleteInputSystemTest() {
 
-        String email="test@nosy.tech";
-        InputSystem inputSystem=new InputSystem();
-        inputSystem.setInputSystemId("inputSystemId");
-        inputSystem.setInputSystemName("inputSystemName");
-        inputSystemServiceMock.deleteInputSystem(inputSystem.getInputSystemId(), email);
-    }
 
     @Test(expected = InputSystemNotFoundException.class)
     public void deleteInputSystemEmailTemplateIsEmptyIsNotNullTest() {

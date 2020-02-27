@@ -22,11 +22,11 @@ public class EmailConfigsTest {
   @Mock
   JavaMailSenderImpl javaMailSender;
 
+
+
   @Test
   public void javaMailYandexSender() {
     assertEquals("smtp.yandex.ru",emailConfigs.javaMailYandexSender().getHost());
-
-
   }
 
   @Test

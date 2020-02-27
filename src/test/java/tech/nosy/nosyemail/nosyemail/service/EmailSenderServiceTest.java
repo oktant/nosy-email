@@ -25,9 +25,12 @@ public class EmailSenderServiceTest {
 
   @InjectMocks
   private EmailSenderService emailSenderService;
+
+
   private ReadyEmail readyEmail;
   @Mock
   EmailConfigs emailConfigs;
+
   @Before
   public void setUp(){
     readyEmail=new ReadyEmail();
@@ -177,6 +180,7 @@ public class EmailSenderServiceTest {
     doNothing().when(mimeMessageHelper).setFrom(anyString());
     emailSenderService.send(readyEmail,javaMailSender);
   }
+
   @Test(expected = IllegalArgumentException.class)
   public void FromAddressNull() throws MessagingException {
     readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
