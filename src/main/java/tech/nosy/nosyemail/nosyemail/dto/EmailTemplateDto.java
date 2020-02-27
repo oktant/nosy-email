@@ -5,7 +5,6 @@ import tech.nosy.nosyemail.nosyemail.model.EmailFromProvider;
 import tech.nosy.nosyemail.nosyemail.model.InputSystem;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 

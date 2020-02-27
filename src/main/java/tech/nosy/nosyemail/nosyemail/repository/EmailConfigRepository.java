@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import tech.nosy.nosyemail.nosyemail.model.EmailConfig;
-import tech.nosy.nosyemail.nosyemail.model.EmailTemplate;
 
 import javax.transaction.Transactional;
 import java.util.List;

@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import tech.nosy.nosyemail.nosyemail.exceptions.*;
 import tech.nosy.nosyemail.nosyemail.model.*;
 import tech.nosy.nosyemail.nosyemail.repository.EmailTemplateRepository;
-import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;import java.util.HashSet;
+import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

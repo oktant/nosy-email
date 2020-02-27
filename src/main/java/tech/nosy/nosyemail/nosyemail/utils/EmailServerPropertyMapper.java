@@ -1,7 +1,6 @@
 package tech.nosy.nosyemail.nosyemail.utils;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import tech.nosy.nosyemail.nosyemail.dto.EmailServerPropertyDto;
 import tech.nosy.nosyemail.nosyemail.model.EmailServerProperty;

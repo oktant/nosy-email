@@ -7,15 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import tech.nosy.nosyemail.nosyemail.dto.EmailConfigDto;
 import tech.nosy.nosyemail.nosyemail.dto.EmailTemplateDto;
 import tech.nosy.nosyemail.nosyemail.dto.InputSystemDto;
-import tech.nosy.nosyemail.nosyemail.model.EmailConfig;
 import tech.nosy.nosyemail.nosyemail.model.EmailProviderProperties;
-import tech.nosy.nosyemail.nosyemail.model.EmailServerProperty;
 import tech.nosy.nosyemail.nosyemail.model.ReadyEmail;
 import tech.nosy.nosyemail.nosyemail.service.EmailConfigService;
 import tech.nosy.nosyemail.nosyemail.service.EmailTemplateService;
 import tech.nosy.nosyemail.nosyemail.service.InputSystemService;
 import tech.nosy.nosyemail.nosyemail.utils.EmailConfigMapper;
-import tech.nosy.nosyemail.nosyemail.utils.EmailServerPropertyMapper;
 import tech.nosy.nosyemail.nosyemail.utils.EmailTemplateMapper;
 import tech.nosy.nosyemail.nosyemail.utils.InputSystemMapper;
 
