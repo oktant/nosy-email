@@ -1,6 +1,5 @@
 package tech.nosy.nosyemail.nosyemail.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -9,7 +8,6 @@ import tech.nosy.nosyemail.nosyemail.model.EmailConfig;
 import tech.nosy.nosyemail.nosyemail.service.EmailConfigService;
 
 import javax.mail.internet.MimeMessage;
-import java.util.List;
 import java.util.Properties;
 
 @Component

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import tech.nosy.nosyemail.nosyemail.config.EmailConfigPopulationBean;
-import tech.nosy.nosyemail.nosyemail.model.EmailConfig;
 import tech.nosy.nosyemail.nosyemail.model.EmailFromProvider;
 import tech.nosy.nosyemail.nosyemail.model.ReadyEmail;
 
