@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tech.nosy.nosyemail.nosyemail.exceptions.*;
 import tech.nosy.nosyemail.nosyemail.model.*;
-import tech.nosy.nosyemail.nosyemail.repository.EmailConfigRepository;
 import tech.nosy.nosyemail.nosyemail.repository.EmailTemplateRepository;
 import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
 

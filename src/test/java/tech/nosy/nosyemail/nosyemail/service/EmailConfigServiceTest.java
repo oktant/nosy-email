@@ -62,8 +62,21 @@ public class EmailConfigServiceTest {
         emailConfigService.getConfig(email, configName);
     }
 
-    //
-//    @Test
-//    void updateConfig() {
-//    }
+
+    @Test
+    public void updateConfig() {
+        String email = "oktay@gmail.com";
+        String configName= "configName";
+        when(emailConfigRepository.findAllByEmailConfigNameAndEmail(anyString(),anyString()))
+                .thenReturn(emailConfig);
+        emailConfigService.updateConfig(email, configName, emailConfig);
+
+    }
+    @Test(expected = CustomEmailConfigNotExists.class)
+    public void updateConfigNull() {
+        String email = "oktay@gmail.com";
+        String configName= "configName";
+        emailConfigService.updateConfig(email, configName, emailConfig);
+
+    }
 }
