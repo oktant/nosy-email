@@ -11,9 +11,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
-@TypeDefs({
-        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
-})
 @Table(
         name = "emailConfig",
         uniqueConstraints = @UniqueConstraint(columnNames = {"email", "emailConfigName"}))
@@ -26,14 +23,15 @@ public class EmailConfig {
     @NotNull
     @NotEmpty
     private String emailConfigName;
+    @NotEmpty
+    @NotNull
     private int port;
+    @NotEmpty
+    @NotNull
     private String host;
-
-
 
     @OneToMany(mappedBy = "emailConfig")
     public Set<EmailTemplate> emailTemplateSet;
-
 
     @NotNull
     @NotEmpty

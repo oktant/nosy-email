@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tech.nosy.nosyemail.nosyemail.exceptions.*;
 import tech.nosy.nosyemail.nosyemail.model.*;
+import tech.nosy.nosyemail.nosyemail.repository.EmailConfigRepository;
 import tech.nosy.nosyemail.nosyemail.repository.EmailTemplateRepository;
 import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
 
@@ -77,9 +78,10 @@ public class EmailTemplateService {
     if (emailTemplate.getEmailTemplateFromProvider().equals(EmailFromProvider.CUSTOM)){
       if (emailConfigName!=null && !emailConfigName.isEmpty()){
           emailTemplate.setEmailConfig(emailConfigService.getConfig(email, emailConfigName));
-      } else
+      } else {
         throw new CustomEmailConfigShouldNotBeEmptyException();
-    }
+      }
+     }
     return emailTemplate;
   }
 
