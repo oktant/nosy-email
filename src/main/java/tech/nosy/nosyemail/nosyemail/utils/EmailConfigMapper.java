@@ -8,7 +8,7 @@ import tech.nosy.nosyemail.nosyemail.model.EmailConfig;
 
 import java.util.List;
 
-@Mapper(uses= {EmailServerPropertyMapper.class})
+@Mapper
 public abstract class EmailConfigMapper {
     public static final EmailConfigMapper INSTANCE = Mappers.getMapper(EmailConfigMapper.class);
     @Mapping(source = "emailConfigName", target = "name")

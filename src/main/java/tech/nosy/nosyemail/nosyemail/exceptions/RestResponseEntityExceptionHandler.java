@@ -94,4 +94,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   public ResponseEntity<MessageError> emailCredentialNotExist() {
     return new ResponseEntity<>(MessageError.EMAIL_CREDENTIALS_NOT_EXISTS, HttpStatus.NOT_FOUND);
   }
+
+  @ExceptionHandler(value = CustomEmailConfigShouldNotBeEmptyException.class)
+  public ResponseEntity<MessageError> customEmailConfigShouldNotBeEmptyException() {
+    return new ResponseEntity<>(MessageError.EMAIL_CONFIG_SHOULD_NOT_BE_EMPTY, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(value = CustomEmailConfigNotExists.class)
+  public ResponseEntity<MessageError> customEmailConfigNotExists() {
+    return new ResponseEntity<>(MessageError.EMAIL_CONFIG_SHOULD_EXIST, HttpStatus.NOT_FOUND);
+  }
 }

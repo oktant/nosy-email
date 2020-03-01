@@ -8,7 +8,7 @@ import tech.nosy.nosyemail.nosyemail.model.EmailTemplate;
 
 import java.util.List;
 
-@Mapper
+@Mapper(uses = EmailConfigMapper.class)
 public abstract class EmailTemplateMapper {
     public static final EmailTemplateMapper INSTANCE = Mappers.getMapper(EmailTemplateMapper.class);
 
@@ -22,7 +22,7 @@ public abstract class EmailTemplateMapper {
     @Mapping(source = "emailTemplatePriority", target = "priority")
     @Mapping(source = "emailTemplateRetryTimes", target = "retryTimes")
     @Mapping(source = "emailTemplateRetryPeriod", target = "retryPeriod")
-
+    @Mapping(source = "emailConfig.emailConfigName", target = "configName")
     public abstract EmailTemplateDto toEmailTemplateDto(EmailTemplate emailTemplate);
 
     public abstract List<EmailTemplateDto> toEmailTemplateDtoList(List<EmailTemplate> emailTemplateList);

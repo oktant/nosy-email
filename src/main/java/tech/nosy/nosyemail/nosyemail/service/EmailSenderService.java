@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-import tech.nosy.nosyemail.nosyemail.config.EmailConfigs;
+import tech.nosy.nosyemail.nosyemail.config.EmailConfigPopulationBean;
 import tech.nosy.nosyemail.nosyemail.model.EmailFromProvider;
 import tech.nosy.nosyemail.nosyemail.model.ReadyEmail;
 
@@ -24,10 +24,11 @@ public class EmailSenderService {
     @Value("${nosy.email.default.password}")
     private String emailDefaultPassword;
 
-    private EmailConfigs emailConfigs;
+
+    private EmailConfigPopulationBean emailConfigPopulationBean;
     @Autowired
-    public EmailSenderService(EmailConfigs emailConfigs){
-        this.emailConfigs=emailConfigs;
+    public EmailSenderService(EmailConfigPopulationBean emailConfigPopulationBean){
+        this.emailConfigPopulationBean=emailConfigPopulationBean;
     }
     public void send(ReadyEmail readyEmail, JavaMailSenderImpl javaMailSender){
         if (readyEmail.getEmailTemplate().getEmailTemplateFromProvider().equals(EmailFromProvider.DEFAULT) ||
@@ -44,7 +45,7 @@ public class EmailSenderService {
             javaMailSender.setPassword(readyEmail.getEmailProviderProperties().getPassword());
         }
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = emailConfigs.mimeMessageHelper(message);
+        MimeMessageHelper mimeMessageHelper = emailConfigPopulationBean.mimeMessageHelper(message);
         try {
 
             mimeMessageHelper.setFrom(readyEmail.getEmailTemplate().getEmailTemplateFromAddress());

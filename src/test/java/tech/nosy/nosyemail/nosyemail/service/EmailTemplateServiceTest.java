@@ -116,7 +116,7 @@ public class EmailTemplateServiceTest {
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         doReturn(emailTemplate).when(emailTemplateRepositoryMock).save(any());
         Assert.assertEquals(emailTemplate.getEmailTemplateName(), emailTemplateServiceMock.newEmailTemplate(emailTemplate,
-                inputSystem.getInputSystemName(), email).getEmailTemplateName());
+                inputSystem.getInputSystemName(), email, null).getEmailTemplateName());
     }
 
     @Test(expected = EmailTemplateExistException.class)
@@ -124,7 +124,8 @@ public class EmailTemplateServiceTest {
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         doReturn(emailTemplate).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem(anyString(),
                 any());
-        Assert.assertEquals(emailTemplateId, emailTemplateServiceMock.newEmailTemplate(emailTemplate, inputSystemId, email).getEmailTemplateId());
+        Assert.assertEquals(emailTemplateId, emailTemplateServiceMock.
+                newEmailTemplate(emailTemplate, inputSystemId, email, null).getEmailTemplateId());
 
     }
     @Test
@@ -133,6 +134,7 @@ public class EmailTemplateServiceTest {
         providers.add("DEFAULT");
         providers.add("YANDEX");
         providers.add("GMAIL");
+        providers.add("CUSTOM");
 
         assertEquals(providers, emailTemplateServiceMock.getAllEmailProviders());
     }

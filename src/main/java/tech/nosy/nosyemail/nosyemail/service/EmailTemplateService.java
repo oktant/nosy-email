@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tech.nosy.nosyemail.nosyemail.exceptions.*;
 import tech.nosy.nosyemail.nosyemail.model.*;
+import tech.nosy.nosyemail.nosyemail.repository.EmailConfigRepository;
 import tech.nosy.nosyemail.nosyemail.repository.EmailTemplateRepository;
 import tech.nosy.nosyemail.nosyemail.repository.InputSystemRepository;
 
@@ -19,6 +20,7 @@ public class EmailTemplateService {
   private EmailTemplateRepository emailTemplateRepository;
   private InputSystemRepository inputSystemRepository;
   private ReadyEmail readyEmail;
+  private EmailConfigService emailConfigService;
   private EmailService emailServiceListener;
 
   @Value("${default.nosy.from.address}")
@@ -29,11 +31,13 @@ public class EmailTemplateService {
           EmailTemplateRepository emailTemplateRepository,
           InputSystemRepository inputSystemRepository,
           ReadyEmail readyEmail,
+          EmailConfigService emailConfigService,
           EmailService emailServiceListener) {
     this.emailTemplateRepository = emailTemplateRepository;
     this.inputSystemRepository = inputSystemRepository;
     this.readyEmail = readyEmail;
     this.emailServiceListener = emailServiceListener;
+    this.emailConfigService=emailConfigService;
   }
 
   public EmailTemplate getEmailTemplateByName(
@@ -58,15 +62,25 @@ public class EmailTemplateService {
   }
 
   public EmailTemplate newEmailTemplate(
-      EmailTemplate emailTemplate, String inputSystemName, String email) {
+      EmailTemplate emailTemplate, String inputSystemName, String email, String emailConfigName) {
     InputSystem inputSystem = getInputSystemForTemplate(inputSystemName, email);
     if (emailTemplateRepository.findEmailTemplateByEmailTemplateNameAndInputSystem(
             emailTemplate.getEmailTemplateName(), inputSystem)
         != null) {
       throw new EmailTemplateExistException();
     }
+    emailTemplate=setEmailConfig(emailTemplate, email, emailConfigName);
     emailTemplate.setInputSystem(inputSystem);
     emailTemplateRepository.save(emailTemplate);
+    return emailTemplate;
+  }
+  public EmailTemplate setEmailConfig(EmailTemplate emailTemplate, String email, String emailConfigName){
+    if (emailTemplate.getEmailTemplateFromProvider().equals(EmailFromProvider.CUSTOM)){
+      if (emailConfigName!=null && !emailConfigName.isEmpty()){
+          emailTemplate.setEmailConfig(emailConfigService.getConfig(email, emailConfigName));
+      } else
+        throw new CustomEmailConfigShouldNotBeEmptyException();
+    }
     return emailTemplate;
   }
 

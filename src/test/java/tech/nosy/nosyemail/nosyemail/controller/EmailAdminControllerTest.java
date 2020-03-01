@@ -6,8 +6,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
+import tech.nosy.nosyemail.nosyemail.dto.EmailConfigDto;
 import tech.nosy.nosyemail.nosyemail.dto.EmailTemplateDto;
 import tech.nosy.nosyemail.nosyemail.dto.InputSystemDto;
+import tech.nosy.nosyemail.nosyemail.model.EmailConfig;
 import tech.nosy.nosyemail.nosyemail.model.EmailTemplate;
 import tech.nosy.nosyemail.nosyemail.model.ReadyEmail;
 import tech.nosy.nosyemail.nosyemail.service.EmailTemplateService;
@@ -75,9 +77,14 @@ public class EmailAdminControllerTest {
 
     @Test
     public void newEmailTemplate() {
+
+        EmailTemplateDto emailTemplate=new EmailTemplateDto();
+        emailTemplate.setConfigName("dasd");
+
         Principal principal=mock(Principal.class);
         assertEquals(HttpStatus.CREATED, emailAdminController.
-                newEmailTemplate(principal, "inputSystemId",null).getStatusCode());
+                newEmailTemplate(principal, "inputSystemId",
+                        emailTemplate).getStatusCode());
     }
     @Test
     public void getEmailTemplateByInputSystemAndEmailTemplateId() {

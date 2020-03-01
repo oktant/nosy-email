@@ -69,7 +69,7 @@ public class EmailAdminController {
                 emailTemplateService.newEmailTemplate(
                         EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto),
                         inputSystemName,
-                        principal.getName())),
+                        principal.getName(), emailTemplateDto.getConfigName())),
                 HttpStatus.CREATED);
     }
 
@@ -146,13 +146,14 @@ public class EmailAdminController {
         return  new ResponseEntity<>(EmailConfigMapper.INSTANCE.toEmailConfigDto(emailConfigService.
                 saveEmailConfig(principal.getName(), EmailConfigMapper.INSTANCE.toEmailConfig(emailConfigDto)))
                 , HttpStatus.CREATED);
-
     }
+
     @GetMapping(value="/email-configs")
     public ResponseEntity<List<EmailConfigDto>> getConfigs(Principal principal){
         return new ResponseEntity<>(EmailConfigMapper.INSTANCE.toEmailConfigDtoList
                 (emailConfigService.getConfigs(principal.getName())), HttpStatus.OK);
     }
+
     @GetMapping(value="/email-configs/{name}")
     public ResponseEntity<EmailConfigDto> getConfig(Principal principal,
                                                     @PathVariable("name") String name){
@@ -163,7 +164,6 @@ public class EmailAdminController {
     @PutMapping(value="/email-configs/{name}")
     public ResponseEntity<EmailConfigDto> updateConfig(Principal principal,
                                                     @PathVariable("name") String name, @RequestBody EmailConfigDto emailConfigDto){
-
         return new ResponseEntity<>(EmailConfigMapper.INSTANCE.toEmailConfigDto
                 (emailConfigService.updateConfig(principal.getName(),name, EmailConfigMapper.INSTANCE.toEmailConfig(emailConfigDto))), HttpStatus.OK);
     }

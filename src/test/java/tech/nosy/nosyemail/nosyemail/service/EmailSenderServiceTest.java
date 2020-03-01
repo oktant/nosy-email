@@ -9,7 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.util.ReflectionTestUtils;
-import tech.nosy.nosyemail.nosyemail.config.EmailConfigs;
+import tech.nosy.nosyemail.nosyemail.config.EmailConfigPopulationBean;
 import tech.nosy.nosyemail.nosyemail.model.*;
 
 import javax.mail.MessagingException;
@@ -29,7 +29,7 @@ public class EmailSenderServiceTest {
 
     private ReadyEmail readyEmail;
     @Mock
-    EmailConfigs emailConfigs;
+    EmailConfigPopulationBean emailConfigPopulationBean;
 
     @Before
     public void setUp() {
@@ -88,7 +88,7 @@ public class EmailSenderServiceTest {
         doNothing().when(javaMailSender).send(mimeMessage);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         doNothing().when(mimeMessageHelper).setFrom(anyString());
         emailSenderService.send(readyEmail, javaMailSender);
@@ -111,7 +111,7 @@ public class EmailSenderServiceTest {
         doNothing().when(javaMailSender).send(mimeMessage);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         doNothing().when(mimeMessageHelper).setFrom(anyString());
         emailSenderService.send(readyEmail, javaMailSender);
@@ -133,7 +133,7 @@ public class EmailSenderServiceTest {
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         doThrow(IllegalArgumentException.class).when(mimeMessageHelper).setFrom(anyString());
         emailSenderService.send(readyEmail, javaMailSender);
@@ -155,7 +155,7 @@ public class EmailSenderServiceTest {
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         doThrow(IllegalArgumentException.class).when(mimeMessageHelper).setFrom(anyString());
         emailSenderService.send(readyEmail, javaMailSender);
@@ -178,7 +178,7 @@ public class EmailSenderServiceTest {
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         doNothing().when(mimeMessageHelper).setFrom(anyString());
         emailSenderService.send(readyEmail, javaMailSender);
@@ -200,7 +200,7 @@ public class EmailSenderServiceTest {
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         doThrow(IllegalArgumentException.class).when(mimeMessageHelper).setFrom(anyString());
         emailSenderService.send(readyEmail, javaMailSender);
@@ -223,7 +223,7 @@ public class EmailSenderServiceTest {
         JavaMailSenderImpl javaMailSender = mock(JavaMailSenderImpl.class);
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
         try {
             doThrow(MessagingException.class).when(mimeMessageHelper).setFrom(anyString());
             emailSenderService.send(readyEmail, javaMailSender);
@@ -250,7 +250,7 @@ public class EmailSenderServiceTest {
         JavaMailSenderImpl javaMailSender = mock(JavaMailSenderImpl.class);
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         try {
             doNothing().when(mimeMessageHelper).setFrom(anyString());
@@ -281,7 +281,7 @@ public class EmailSenderServiceTest {
         JavaMailSenderImpl javaMailSender = mock(JavaMailSenderImpl.class);
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         try {
             doNothing().when(mimeMessageHelper).setFrom(anyString());
@@ -310,7 +310,7 @@ public class EmailSenderServiceTest {
         JavaMailSenderImpl javaMailSender = mock(JavaMailSenderImpl.class);
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         try {
             doNothing().when(mimeMessageHelper).setFrom(anyString());
@@ -339,7 +339,7 @@ public class EmailSenderServiceTest {
         JavaMailSenderImpl javaMailSender = mock(JavaMailSenderImpl.class);
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         try {
             doNothing().when(mimeMessageHelper).setFrom(anyString());
@@ -368,7 +368,7 @@ public class EmailSenderServiceTest {
         JavaMailSenderImpl javaMailSender = mock(JavaMailSenderImpl.class);
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
-        when(emailConfigs.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
+        when(emailConfigPopulationBean.mimeMessageHelper(mimeMessage)).thenReturn(mimeMessageHelper);
 
         try {
             doNothing().when(mimeMessageHelper).setFrom(anyString());

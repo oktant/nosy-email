@@ -1,10 +1,18 @@
 package tech.nosy.nosyemail.nosyemail.dto;
 
-import java.util.List;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class EmailConfigDto {
+    @NotNull
+    @NotEmpty
     private String name;
-    private List<EmailServerPropertyDto> emailConfigs;
+    @NotNull
+    @NotEmpty
+    private String host;
+    @NotNull
+    @NotEmpty
+    private int port;
     private String email;
 
     public String getName() {
@@ -15,12 +23,21 @@ public class EmailConfigDto {
         this.name = name;
     }
 
-    public List<EmailServerPropertyDto> getEmailConfigs() {
-        return emailConfigs;
+
+    public String getHost() {
+        return host;
     }
 
-    public void setEmailConfigs(List<EmailServerPropertyDto> emailConfigs) {
-        this.emailConfigs = emailConfigs;
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
     public String getEmail() {
@@ -35,7 +52,6 @@ public class EmailConfigDto {
     public String toString() {
         return "EmailConfigDto{" +
                 "name='" + name + '\'' +
-                ", emailConfigs=" + emailConfigs +
                 ", email='" + email + '\'' +
                 '}';
     }

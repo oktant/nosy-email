@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 public class EmailConfigsTest {
 
   @InjectMocks
-  EmailConfigs emailConfigs;
+  EmailConfigPopulationBean emailConfigPopulationBean;
 
   @Mock
   JavaMailSenderImpl javaMailSender;
@@ -26,19 +26,19 @@ public class EmailConfigsTest {
 
   @Test
   public void javaMailYandexSender() {
-    assertEquals("smtp.yandex.ru",emailConfigs.javaMailYandexSender().getHost());
+    assertEquals("smtp.yandex.ru",emailConfigPopulationBean.javaMailYandexSender().getHost());
   }
 
   @Test
   public void javaMailGmailSender() {
-    assertEquals("smtp.yandex.ru",emailConfigs.javaMailDefaultSender().getHost());
+    assertEquals("smtp.yandex.ru",emailConfigPopulationBean.javaMailDefaultSender().getHost());
 
 
   }
 
   @Test
   public void javaMailDefaultSender() {
-    assertEquals("smtp.gmail.com",emailConfigs.javaMailGmailSender().getHost());
+    assertEquals("smtp.gmail.com",emailConfigPopulationBean.javaMailGmailSender().getHost());
 
   }
 
@@ -46,7 +46,7 @@ public class EmailConfigsTest {
   public void mimeMessageHelper() {
     MimeMessage mimeMessage=mock(MimeMessage.class);
 
-    emailConfigs.mimeMessageHelper(mimeMessage);
+    emailConfigPopulationBean.mimeMessageHelper(mimeMessage);
 
   }
 }

@@ -2,6 +2,7 @@ package tech.nosy.nosyemail.nosyemail.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.nosy.nosyemail.nosyemail.exceptions.CustomEmailConfigNotExists;
 import tech.nosy.nosyemail.nosyemail.model.EmailConfig;
 import tech.nosy.nosyemail.nosyemail.repository.EmailConfigRepository;
 
@@ -24,14 +25,22 @@ public class EmailConfigService {
         return emailConfigRepository.findAllByEmail(email);
     }
     public EmailConfig getConfig(String email, String configName){
-        return emailConfigRepository.findAllByEmailConfigNameAndEmail(configName, email);
+        EmailConfig emailConfig=emailConfigRepository.findAllByEmailConfigNameAndEmail(configName, email);
+        if (emailConfig==null){
+            throw new CustomEmailConfigNotExists();
+        }
+        return emailConfig;
     }
     public EmailConfig updateConfig(String email, String name, EmailConfig emailConfig){
         EmailConfig emailConfigUpdate =
                 emailConfigRepository.findAllByEmailConfigNameAndEmail(name, email);
+        if (emailConfigUpdate==null){
+            throw new CustomEmailConfigNotExists();
+        }
         emailConfigUpdate.setEmailConfigName(name);
         emailConfigUpdate.setEmail(email);
-        emailConfigUpdate.setEmailConfigs(emailConfig.getEmailConfigs());
+        emailConfigUpdate.setHost(emailConfig.getHost());
+        emailConfigUpdate.setPort(emailConfig.getPort());
         return emailConfigRepository.save(emailConfigUpdate);
     }
 

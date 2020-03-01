@@ -59,6 +59,12 @@ public class EmailTemplate {
 
   @NotNull private String emailTemplateSubject;
 
+  @NotNull
+  @ManyToOne
+  @JsonBackReference
+  @JoinColumn(name="email_config_id")
+  private EmailConfig emailConfig;
+
   @PrePersist
   protected void onCreate() {
     if (emailTemplateName == null || emailTemplateName.isEmpty()) {
@@ -161,6 +167,14 @@ public class EmailTemplate {
 
   public void setEmailTemplateSubject(String emailTemplateSubject) {
     this.emailTemplateSubject = emailTemplateSubject;
+  }
+
+  public EmailConfig getEmailConfig() {
+    return emailConfig;
+  }
+
+  public void setEmailConfig(EmailConfig emailConfig) {
+    this.emailConfig = emailConfig;
   }
 
   @Override

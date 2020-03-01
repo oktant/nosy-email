@@ -28,6 +28,9 @@ public class EmailTemplateDto {
   private int retryPeriod;
 
   private int priority;
+
+  private String configName;
+
   @JsonIgnore
   private InputSystem inputSystem;
 
@@ -118,5 +121,13 @@ public class EmailTemplateDto {
 
   public void setInputSystem(InputSystem inputSystem) {
     this.inputSystem = inputSystem;
+  }
+
+  public String getConfigName() {
+    return configName;
+  }
+
+  public void setConfigName(String configName) {
+    this.configName = configName;
   }
 }

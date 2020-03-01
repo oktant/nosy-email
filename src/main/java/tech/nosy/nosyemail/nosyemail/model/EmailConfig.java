@@ -1,5 +1,6 @@
 package tech.nosy.nosyemail.nosyemail.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @TypeDefs({
@@ -27,18 +29,14 @@ public class EmailConfig {
     @NotNull
     @NotEmpty
     private String emailConfigName;
+    private int port;
+    private String host;
 
-    @Type(type = "jsonb")
-    @Column(columnDefinition = "jsonb")
-    private List<EmailServerProperty> emailConfigs;
 
-    public List<EmailServerProperty> getEmailConfigs() {
-        return emailConfigs;
-    }
 
-    public void setEmailConfigs(List<EmailServerProperty> emailConfigs) {
-        this.emailConfigs = emailConfigs;
-    }
+    @OneToMany(mappedBy = "emailConfig")
+    public Set<EmailTemplate> emailTemplateSet;
+
 
     @NotNull
     @NotEmpty
@@ -68,13 +66,27 @@ public class EmailConfig {
         this.emailConfigName = emailConfigName;
     }
 
-//    public Map<String, String> getEmailConfigs() {
-//        return emailConfigs;
-//    }
-//
-//    public void setEmailConfigs(Map<String, String> emailConfigs) {
-//        this.emailConfigs = emailConfigs;
-//    }
+    public int getPort() {
+        return port;
+    }
 
+    public void setPort(int port) {
+        this.port = port;
+    }
 
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public Set<EmailTemplate> getEmailTemplateSet() {
+        return emailTemplateSet;
+    }
+
+    public void setEmailTemplateSet(Set<EmailTemplate> emailTemplateSet) {
+        this.emailTemplateSet = emailTemplateSet;
+    }
 }

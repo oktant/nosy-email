@@ -32,8 +32,9 @@ public enum MessageError {
   TO_ADDRESS_IS_NOT_SPECIFIED("No recipient address has been specified"),
   MAIL_CANNOT_BE_SENT("Cannot send email, check the payload"),
   EMAIL_CREDENTIALS_EXISTS("Email Credentials already exist"),
-  EMAIL_CREDENTIALS_NOT_EXISTS("Email Credential doesn't exist");
-
+  EMAIL_CREDENTIALS_NOT_EXISTS("Email Credential doesn't exist"),
+  EMAIL_CONFIG_SHOULD_NOT_BE_EMPTY("For custom email templates email configuration name should be provided"),
+  EMAIL_CONFIG_SHOULD_EXIST("Custom email configuration with the specified name doesn't exist");
 
   private String message;
 
