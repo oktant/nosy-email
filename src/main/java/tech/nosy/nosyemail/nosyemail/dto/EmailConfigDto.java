@@ -48,11 +48,4 @@ public class EmailConfigDto {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "EmailConfigDto{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

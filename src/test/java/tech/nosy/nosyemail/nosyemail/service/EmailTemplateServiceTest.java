@@ -36,6 +36,9 @@ public class EmailTemplateServiceTest {
     EmailService emailService;
 
     @Mock
+    EmailConfigService emailConfigService;
+
+    @Mock
     ReadyEmail readyEmail;
     private EmailProviderProperties emailProviderProperties;
     private String emailTemplateId;
@@ -552,5 +555,26 @@ public class EmailTemplateServiceTest {
         doReturn(currentEmailTemplate).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem
                 (anyString(), any());
         Assert.assertEquals(emailTemplate,emailTemplateServiceMock.updateEmailTemplate(emailTemplate1, inputSystemId, emailTemplateId, email));
+    }
+
+    @Test
+    public void testSetEmailConfig(){
+        emailTemplate.setEmailTemplateFromProvider(EmailFromProvider.CUSTOM);
+        EmailConfig emailConfig=new EmailConfig();
+        emailConfig.setEmailConfigId("asdasd");
+        emailConfig.setEmail("dasdasd");
+        emailConfig.setHost("dada");
+        emailConfig.setEmailConfigName("dadasda");
+        emailConfig.setPort(3231);
+        emailTemplateServiceMock.setEmailConfig(emailTemplate,emailConfig.getEmail(), emailConfig.getEmailConfigName());
+    }
+
+    @Test(expected = CustomEmailConfigShouldNotBeEmptyException.class)
+    public void testSetEmailConfigNull(){
+        emailTemplate.setEmailTemplateFromProvider(EmailFromProvider.CUSTOM);
+        EmailConfig emailConfig=null;
+
+        emailTemplateServiceMock.setEmailConfig
+                (emailTemplate,"emailConfig", null);
     }
 }
