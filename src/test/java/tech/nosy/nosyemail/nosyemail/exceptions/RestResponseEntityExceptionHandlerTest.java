@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.RollbackException;
 
@@ -123,5 +124,25 @@ public class RestResponseEntityExceptionHandlerTest {
     public void sendException(){
         MailSendException mailSendException=new MailSendException("No recipient addresses");
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.sendException(mailSendException).getStatusCode());
+    }
+
+    @Test
+    public void emailCredentialProfileAlreadyExistException() {
+        assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.emailCredentialProfileAlreadyExistException().getStatusCode());
+    }
+
+    @Test
+    public void emailCredentialNotExist() {
+        assertEquals(HttpStatus.NOT_FOUND,restResponseEntityExceptionHandler.emailCredentialNotExist().getStatusCode());
+    }
+
+    @Test
+    public void customEmailConfigShouldNotBeEmptyException() {
+        assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.customEmailConfigShouldNotBeEmptyException().getStatusCode());
+    }
+
+    @Test
+    public void customEmailConfigNotExists() {
+        assertEquals(HttpStatus.NOT_FOUND,restResponseEntityExceptionHandler.customEmailConfigNotExists().getStatusCode());
     }
 }

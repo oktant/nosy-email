@@ -149,7 +149,6 @@ public class EmailAdminControllerTest {
         Principal principal=mock(Principal.class);
         String name= "configName";
         assertEquals(HttpStatus.OK, emailAdminController.getConfig(principal,name).getStatusCode());
-
     }
 }
 
