@@ -63,7 +63,7 @@ public class EmailConfigServiceTest {
     }
 
 
-    @Test
+    @Test(expected = Test.None.class)
     public void updateConfig() {
         String email = "oktay@gmail.com";
         String configName= "configName";
