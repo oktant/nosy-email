@@ -85,11 +85,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     return new ResponseEntity<>(MessageError.MAIL_CANNOT_BE_SENT, HttpStatus.BAD_REQUEST);
   }
 
-  @ExceptionHandler(value = EmailCredentialProfileAlreadyExistException.class)
-  public ResponseEntity<MessageError> emailCredentialProfileAlreadyExistException() {
-    return new ResponseEntity<>(MessageError.EMAIL_CREDENTIALS_EXISTS, HttpStatus.BAD_REQUEST);
-  }
-
   @ExceptionHandler(value = EmailCredentialNotExist.class)
   public ResponseEntity<MessageError> emailCredentialNotExist() {
     return new ResponseEntity<>(MessageError.EMAIL_CREDENTIALS_NOT_EXISTS, HttpStatus.NOT_FOUND);

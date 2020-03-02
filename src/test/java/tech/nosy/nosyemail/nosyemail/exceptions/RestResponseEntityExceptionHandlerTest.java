@@ -127,11 +127,6 @@ public class RestResponseEntityExceptionHandlerTest {
     }
 
     @Test
-    public void emailCredentialProfileAlreadyExistException() {
-        assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.emailCredentialProfileAlreadyExistException().getStatusCode());
-    }
-
-    @Test
     public void emailCredentialNotExist() {
         assertEquals(HttpStatus.NOT_FOUND,restResponseEntityExceptionHandler.emailCredentialNotExist().getStatusCode());
     }
