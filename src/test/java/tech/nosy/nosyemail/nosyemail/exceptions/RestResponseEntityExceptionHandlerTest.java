@@ -127,11 +127,6 @@ public class RestResponseEntityExceptionHandlerTest {
     }
 
     @Test
-    public void emailCredentialNotExist() {
-        assertEquals(HttpStatus.NOT_FOUND,restResponseEntityExceptionHandler.emailCredentialNotExist().getStatusCode());
-    }
-
-    @Test
     public void customEmailConfigShouldNotBeEmptyException() {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.customEmailConfigShouldNotBeEmptyException().getStatusCode());
     }
