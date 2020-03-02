@@ -50,7 +50,8 @@ public class EmailAdminController {
     @GetMapping(value = "/input-systems")
     public ResponseEntity<Set<InputSystemDto>> getInputSystems(@RequestParam(required = false) String name, Principal principal) {
         return new ResponseEntity<>(
-                InputSystemMapper.INSTANCE.toInputSystemDtoSet(inputSystemService.getListOfInputSystems(name, principal.getName())), HttpStatus.OK);
+                InputSystemMapper.INSTANCE.toInputSystemDtoSet(inputSystemService.
+                        getListOfInputSystems(name, principal.getName())), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/input-systems/{inputSystemName}")
@@ -115,7 +116,8 @@ public class EmailAdminController {
     @PostMapping(value = "/email/post")
     public ResponseEntity<EmailTemplateDto> emailPost(@RequestBody ReadyEmail readyEmail) {
         return new ResponseEntity<>(
-                EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplateService.postEmail(readyEmail)), HttpStatus.OK);
+                EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplateService.postEmail(readyEmail)),
+                HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/input-systems/{inputSystemName}/email-templates/{emailTemplateName}")

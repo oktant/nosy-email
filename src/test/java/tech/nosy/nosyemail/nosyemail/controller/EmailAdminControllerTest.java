@@ -10,6 +10,7 @@ import tech.nosy.nosyemail.nosyemail.dto.EmailTemplateDto;
 import tech.nosy.nosyemail.nosyemail.dto.InputSystemDto;
 import tech.nosy.nosyemail.nosyemail.model.EmailTemplate;
 import tech.nosy.nosyemail.nosyemail.model.ReadyEmail;
+import tech.nosy.nosyemail.nosyemail.service.EmailConfigService;
 import tech.nosy.nosyemail.nosyemail.service.EmailTemplateService;
 import tech.nosy.nosyemail.nosyemail.service.InputSystemService;
 
@@ -30,6 +31,9 @@ public class EmailAdminControllerTest {
 
     @Mock
     InputSystemService inputSystemService;
+
+    @Mock
+    EmailConfigService emailConfigService;
 
     @Test
     public void emailTemplatePost() {
@@ -123,6 +127,29 @@ public class EmailAdminControllerTest {
 
         assertEquals(HttpStatus.NO_CONTENT, emailAdminController.
                 deleteInputSystem("inputSystemId", principal).getStatusCode());
+    }
+
+
+    @Test
+    public void getConfigs() {
+        Principal principal=mock(Principal.class);
+        assertEquals(HttpStatus.OK, emailAdminController.getConfigs(principal).getStatusCode());
+    }
+
+    @Test
+    public void getConfig() {
+        Principal principal=mock(Principal.class);
+        String name= "configName";
+        assertEquals(HttpStatus.OK, emailAdminController.getConfig(principal,name).getStatusCode());
+
+    }
+
+    @Test
+    public void updateConfig() {
+        Principal principal=mock(Principal.class);
+        String name= "configName";
+        assertEquals(HttpStatus.OK, emailAdminController.getConfig(principal,name).getStatusCode());
+
     }
 }
 
