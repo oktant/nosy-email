@@ -157,7 +157,6 @@ public class EmailAdminControllerTest {
     public void postConfig() {
         Principal principal=mock(Principal.class);
         EmailConfigDto emailConfigDto=new EmailConfigDto();
-        emailConfigDto.setEmail("dsadas");
         emailConfigDto.setHost("dsfsd");
         emailConfigDto.setPort(22);
         emailConfigDto.setName("dadas");

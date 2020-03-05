@@ -44,7 +44,6 @@ public class EmailTemplateMapperTest {
         emailTemplateDto.setName("EmailTemplateDtoName");
         emailTemplateDto.setText("EmailTemplateDtoText");
         emailTemplateDto.setFromProvider(EmailFromProvider.DEFAULT);
-        emailTemplateDto.setInputSystem(inputSystem);
         emailTemplateDto.setFromAddress("testDto@nosy.tech");
         emailTemplateDto.setPriority(1);
         emailTemplateDto.setRetryPeriod(1);
@@ -63,7 +62,6 @@ public class EmailTemplateMapperTest {
         assertEquals(emailTemplate.getEmailTemplateName(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getName());
         assertEquals(emailTemplate.getEmailTemplateSubject(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getSubject());
         assertEquals(emailTemplate.getEmailTemplateFromAddress(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getFromAddress());
-        assertEquals(emailTemplate.getInputSystem(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getInputSystem());
         assertEquals(emailTemplate.getEmailTemplatePriority(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getPriority());
         assertEquals(emailTemplate.getEmailTemplateRetryPeriod(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getRetryPeriod());
         assertEquals(emailTemplate.getEmailTemplateRetryTimes(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getRetryTimes());
@@ -79,7 +77,6 @@ public class EmailTemplateMapperTest {
         assertEquals(emailTemplateDto.getTo(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateTo());
         assertEquals(emailTemplateDto.getName(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateName());
         assertEquals(emailTemplateDto.getFromAddress(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateFromAddress());
-        assertEquals(emailTemplateDto.getInputSystem(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getInputSystem());
         assertEquals(emailTemplateDto.getPriority(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplatePriority());
         assertEquals(emailTemplateDto.getRetryPeriod(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateRetryPeriod());
         assertEquals(emailTemplateDto.getRetryTimes(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateRetryTimes());
