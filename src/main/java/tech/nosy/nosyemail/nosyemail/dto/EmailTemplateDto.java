@@ -31,10 +31,6 @@ public class EmailTemplateDto {
 
   private String configName;
 
-  @JsonIgnore
-  private InputSystem inputSystem;
-
-
   public String getName() {
     return name;
   }
@@ -115,13 +111,6 @@ public class EmailTemplateDto {
     this.priority = priority;
   }
 
-  public InputSystem getInputSystem() {
-    return inputSystem;
-  }
-
-  public void setInputSystem(InputSystem inputSystem) {
-    this.inputSystem = inputSystem;
-  }
 
   public String getConfigName() {
     return configName;

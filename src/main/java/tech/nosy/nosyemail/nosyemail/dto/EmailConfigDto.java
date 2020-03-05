@@ -13,7 +13,6 @@ public class EmailConfigDto {
     @NotNull
     @NotEmpty
     private int port;
-    private String email;
 
     public String getName() {
         return name;
@@ -38,14 +37,6 @@ public class EmailConfigDto {
 
     public void setPort(int port) {
         this.port = port;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
 }

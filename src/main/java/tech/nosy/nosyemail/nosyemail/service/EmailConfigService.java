@@ -6,6 +6,8 @@ import tech.nosy.nosyemail.nosyemail.exceptions.CustomEmailConfigNotExists;
 import tech.nosy.nosyemail.nosyemail.model.EmailConfig;
 import tech.nosy.nosyemail.nosyemail.repository.EmailConfigRepository;
 
+import java.io.IOException;
+import java.sql.SQLClientInfoException;
 import java.util.List;
 
 @Service
@@ -31,7 +33,7 @@ public class EmailConfigService {
         }
         return emailConfig;
     }
-    public EmailConfig updateConfig(String email, String name, EmailConfig emailConfig){
+    public EmailConfig updateConfig(String email, String name, EmailConfig emailConfig) {
         EmailConfig emailConfigUpdate =
                 emailConfigRepository.findAllByEmailConfigNameAndEmail(name, email);
         if (emailConfigUpdate==null){
