@@ -1,8 +1,13 @@
-language: java 
-dist: trusty
-jdk: oraclejdk8
+sudo: required
+language: java
+dist: bionic
+jdk: openjdk8
+python:
+  - 3.8
 
-
+env:
+  NOSY_EMAIL_IMAGE: nosy-email:2.4
+  
 addons:
   sonarcloud:
     organization: "notification-system"
@@ -12,6 +17,9 @@ script:
   # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
   - ./mvnw clean install -B
   - mvn clean verify sonar:sonar -Pcoverage 
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker build -t oktayalizada/$NOSY_EMAIL_IMAGE .
+  - docker push oktayalizada/$NOSY_EMAIL_IMAGE
 
 cache:
   directories:
@@ -22,6 +30,8 @@ services:
   - docker
 
 after_success:
-   - docker login -u $DOCKER_USER -p $DOCKER_PASS
-   - docker build -t $IMAGE_TAG .
-   - docker push $IMAGE_TAG
+  - export PATH=$PATH:$HOME/.local/bin 
+  - pip install awscli 
+  - eval $(aws ecr get-login --no-include-email --region eu-north-1)
+  - docker tag oktayalizada/$NOSY_EMAIL_IMAGE $AWS_ECR_ACCOUNT.dkr.ecr.eu-north-1.amazonaws.com/$NOSY_EMAIL_IMAGE
+  - docker push $AWS_ECR_ACCOUNT.dkr.ecr.eu-north-1.amazonaws.com/$NOSY_EMAIL_IMAGE
