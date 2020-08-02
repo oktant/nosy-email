@@ -38,7 +38,7 @@ public class EmailAdminControllerTest {
     EmailConfigService emailConfigService;
 
     @Test
-    public void emailTemplatePost() {
+    public void emailTemplatePostTest() {
         EmailTemplateDto emailTemplateDto=new EmailTemplateDto();
         emailTemplateDto.setSubject("TestSubject");
         Principal principal=mock(Principal.class);
@@ -49,7 +49,7 @@ public class EmailAdminControllerTest {
     }
 
     @Test
-    public void emailPost() {
+    public void emailPostTest() {
         ReadyEmail readyEmail = new ReadyEmail();
         readyEmail.setEmailTemplate(new EmailTemplate());
         readyEmail.getEmailTemplate().setEmailTemplateSubject("TestSubject");
@@ -58,7 +58,7 @@ public class EmailAdminControllerTest {
     }
 
     @Test
-    public void newType() {
+    public void newTypeTest() {
         InputSystemDto inputSystemDto=new InputSystemDto();
         inputSystemDto.setName("dasda");
         Principal principal=mock(Principal.class);
@@ -67,20 +67,20 @@ public class EmailAdminControllerTest {
     }
 
     @Test
-    public void getInputSystems() {
+    public void getInputSystemsTest() {
         Principal principal=mock(Principal.class);
         assertEquals(HttpStatus.OK, emailAdminController.getInputSystems("", principal).getStatusCode());
     }
 
     @Test
-    public void getEmailAllProviders() {
+    public void getEmailAllProvidersTest() {
         Principal principal=mock(Principal.class);
         when(emailTemplateService.getAllEmailProviders()).thenReturn(null);
         assertEquals(HttpStatus.OK, emailAdminController.getEmailAllProviders().getStatusCode());
     }
 
     @Test
-    public void newEmailTemplate() {
+    public void newEmailTemplateTest() {
 
         EmailTemplateDto emailTemplate=new EmailTemplateDto();
         emailTemplate.setConfigName("dasd");
@@ -91,14 +91,14 @@ public class EmailAdminControllerTest {
                         emailTemplate).getStatusCode());
     }
     @Test
-    public void getEmailTemplateByInputSystemAndEmailTemplateId() {
+    public void getEmailTemplateByInputSystemAndEmailTemplateIdTest() {
         Principal principal=mock(Principal.class);
         assertEquals(HttpStatus.OK, emailAdminController.
                 getEmailTemplateByInputSystemAndEmailTemplateName("emailTemplateId","inputSystemId",principal).getStatusCode());
     }
 
     @Test
-    public void updateEmailTemplate() {
+    public void updateEmailTemplateTest() {
         Principal principal=mock(Principal.class);
 
         assertEquals(HttpStatus.OK, emailAdminController.
@@ -108,7 +108,7 @@ public class EmailAdminControllerTest {
 
 
     @Test
-    public void getEmailTemplates() {
+    public void getEmailTemplatesTest() {
         Principal principal=mock(Principal.class);
 
         assertEquals(HttpStatus.OK, emailAdminController.
@@ -116,7 +116,7 @@ public class EmailAdminControllerTest {
     }
 
     @Test
-    public void deleteEmailTemplate() {
+    public void deleteEmailTemplateTest() {
         Principal principal=mock(Principal.class);
 
         assertEquals(HttpStatus.NO_CONTENT, emailAdminController.
@@ -124,7 +124,7 @@ public class EmailAdminControllerTest {
     }
 
     @Test
-    public void deleteInputSystem() {
+    public void deleteInputSystemTest() {
         Principal principal=mock(Principal.class);
 
         assertEquals(HttpStatus.NO_CONTENT, emailAdminController.
@@ -139,7 +139,7 @@ public class EmailAdminControllerTest {
     }
 
     @Test
-    public void getConfig() {
+    public void getConfigTest() {
         Principal principal=mock(Principal.class);
         String name= "configName";
         assertEquals(HttpStatus.OK, emailAdminController.getConfig(principal,name).getStatusCode());
@@ -147,14 +147,14 @@ public class EmailAdminControllerTest {
     }
 
     @Test
-    public void updateConfig() {
+    public void updateConfigTest() {
         Principal principal=mock(Principal.class);
         String name= "configName";
         assertEquals(HttpStatus.OK, emailAdminController.getConfig(principal,name).getStatusCode());
     }
 
     @Test
-    public void postConfig() {
+    public void postConfigTest() {
         Principal principal=mock(Principal.class);
         EmailConfigDto emailConfigDto=new EmailConfigDto();
         emailConfigDto.setHost("dsfsd");

@@ -1,5 +1,6 @@
 package tech.nosy.nosyemail.nosyemail.exceptions;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -89,6 +90,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   public ResponseEntity<MessageError> customEmailConfigShouldNotBeEmptyException() {
     return new ResponseEntity<>(MessageError.EMAIL_CONFIG_SHOULD_NOT_BE_EMPTY, HttpStatus.BAD_REQUEST);
   }
+
+
 
   @ExceptionHandler(value = CustomEmailConfigNotExists.class)
   public ResponseEntity<MessageError> customEmailConfigNotExists() {

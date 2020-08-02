@@ -27,12 +27,12 @@ public class RestResponseEntityExceptionHandlerTest {
     RollbackException rollbackException;
 
     @Test
-    public void emailTemplateNameInvalidException() {
+    public void emailTemplateNameInvalidExceptionTest() {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.emailTemplateNameInvalidException().getStatusCode());
     }
 
     @Test
-    public void constraintViolationMustBeWellFormed() {
+    public void constraintViolationMustBeWellFormedTest() {
         Throwable throwable=mock(Throwable.class);
         when(rollbackException.getCause()).thenReturn(throwable);
         when(throwable.getLocalizedMessage()).thenReturn("must be a well-formed");
@@ -41,7 +41,7 @@ public class RestResponseEntityExceptionHandlerTest {
     }
 
     @Test
-    public void constraintViolationMustNotBeNull() {
+    public void constraintViolationMustNotBeNullTest() {
         Throwable throwable=mock(Throwable.class);
         when(rollbackException.getCause()).thenReturn(throwable);
         when(throwable.getLocalizedMessage()).thenReturn("must not be null");
@@ -49,7 +49,7 @@ public class RestResponseEntityExceptionHandlerTest {
     }
 
     @Test
-    public void constraintViolationMustNotBeEmpty() {
+    public void constraintViolationMustNotBeEmptyTest() {
         Throwable throwable=mock(Throwable.class);
         when(rollbackException.getCause()).thenReturn(throwable);
         when(throwable.getLocalizedMessage()).thenReturn("must not be empty");
@@ -57,7 +57,7 @@ public class RestResponseEntityExceptionHandlerTest {
     }
 
     @Test
-    public void constraintViolation() {
+    public void constraintViolationTest() {
         Throwable throwable=mock(Throwable.class);
         when(rollbackException.getCause()).thenReturn(throwable);
         when(throwable.getLocalizedMessage()).thenReturn("some fields cannot be determined");
@@ -65,12 +65,12 @@ public class RestResponseEntityExceptionHandlerTest {
     }
 
     @Test
-    public void authorizationServerCannotPerformTheOperation() {
+    public void authorizationServerCannotPerformTheOperationTest() {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,restResponseEntityExceptionHandler.authorizationServerCannotPerformTheOperation().getStatusCode());
     }
 
     @Test
-    public void inputSystemExistAlreadyExistsException() {
+    public void inputSystemExistAlreadyExistsExceptionTest() {
         DataIntegrityViolationException dataIntegrityViolationException=mock(DataIntegrityViolationException.class);
         ResponseEntity<MessageError> messageErrorResponseEntity=restResponseEntityExceptionHandler.objectAlreadyExistsException(dataIntegrityViolationException);
         assertEquals(MessageError.RESOURCE_ALREADY_EXISTS.getMessage(),messageErrorResponseEntity.getBody().getMessage());
@@ -79,60 +79,60 @@ public class RestResponseEntityExceptionHandlerTest {
 
 
     @Test
-    public void inputSystemNameIsMandatoryException() {
+    public void inputSystemNameIsMandatoryExceptionTest() {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.inputSystemNameIsMandatoryException().getStatusCode());
 
     }
 
     @Test
-    public void usernameAndPasswordAreNotProvidedForNonDefaultException() {
+    public void usernameAndPasswordAreNotProvidedForNonDefaultExceptionTest() {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.usernameAndPasswordAreNotProvidedForNonDefaultException().getStatusCode());
 
     }
 
     @Test
-    public void emailTemplateNotFoundException() {
+    public void emailTemplateNotFoundExceptionTest() {
         assertEquals(HttpStatus.NOT_FOUND,restResponseEntityExceptionHandler.emailTemplateNotFoundException().getStatusCode());
     }
 
     @Test
-    public void inputSystemNotFoundException() {
+    public void inputSystemNotFoundExceptionTest() {
         assertEquals(HttpStatus.NOT_FOUND,restResponseEntityExceptionHandler.inputSystemNotFoundException().getStatusCode());
     }
 
     @Test
-    public void emailTemplateExistException() {
+    public void emailTemplateExistExceptionTest() {
         assertEquals(HttpStatus.CONFLICT,restResponseEntityExceptionHandler.emailTemplateExistException().getStatusCode());
     }
 
     @Test
-    public void notEnoughParametersForPlaceholdersException() {
+    public void notEnoughParametersForPlaceholdersExceptionTest() {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.notEnoughParametersForPlaceholdersException().getStatusCode());
     }
 
     @Test
-    public void inputSystemHasChildrenException() {
+    public void inputSystemHasChildrenExceptionTest() {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.inputSystemHasChildrenException().getStatusCode());
 
     }
     @Test
-    public void sendExceptionMailSendException(){
+    public void sendExceptionMailSendExceptionTest(){
         MailSendException mailSendException=mock(MailSendException.class);
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.sendException(mailSendException).getStatusCode());
     }
     @Test
-    public void sendException(){
+    public void sendExceptionTest(){
         MailSendException mailSendException=new MailSendException("No recipient addresses");
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.sendException(mailSendException).getStatusCode());
     }
 
     @Test
-    public void customEmailConfigShouldNotBeEmptyException() {
+    public void customEmailConfigShouldNotBeEmptyExceptionTest() {
         assertEquals(HttpStatus.BAD_REQUEST,restResponseEntityExceptionHandler.customEmailConfigShouldNotBeEmptyException().getStatusCode());
     }
 
     @Test
-    public void customEmailConfigNotExists() {
+    public void customEmailConfigNotExistsTest() {
         assertEquals(HttpStatus.NOT_FOUND,restResponseEntityExceptionHandler.customEmailConfigNotExists().getStatusCode());
     }
 }

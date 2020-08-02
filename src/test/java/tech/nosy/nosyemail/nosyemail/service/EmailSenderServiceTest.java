@@ -78,7 +78,7 @@ public class EmailSenderServiceTest {
 
 
     @Test(expected = org.junit.Test.None.class)
-    public void send() throws MessagingException {
+    public void sendTest() throws MessagingException {
         EmailProviderProperties emailProviderProperties = new EmailProviderProperties();
         emailProviderProperties.setPassword("dadad");
         emailProviderProperties.setUsername("dadasdas");
@@ -97,7 +97,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = org.junit.Test.None.class)
-    public void NonDefault() throws MessagingException {
+    public void NonDefaultTest() throws MessagingException {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
 
         EmailProviderProperties emailProviderProperties = new EmailProviderProperties();
@@ -118,7 +118,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void WithCcNull() throws MessagingException {
+    public void WithCcNullTest() throws MessagingException {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
 
         EmailProviderProperties emailProviderProperties = new EmailProviderProperties();
@@ -140,7 +140,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void WithToNull() throws MessagingException {
+    public void WithToNullTest() throws MessagingException {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
 
         EmailProviderProperties emailProviderProperties = new EmailProviderProperties();
@@ -164,7 +164,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = org.junit.Test.None.class)
-    public void WithCcEmpty() throws MessagingException {
+    public void WithCcEmptyTest() throws MessagingException {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
 
         EmailProviderProperties emailProviderProperties = new EmailProviderProperties();
@@ -185,7 +185,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void FromAddressNull() throws MessagingException {
+    public void FromAddressNullTest() throws MessagingException {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
         readyEmail.getEmailTemplate().setEmailTemplateFromAddress(null);
         EmailProviderProperties emailProviderProperties = new EmailProviderProperties();
@@ -209,7 +209,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = Test.None.class)
-    public void messagingException() {
+    public void messagingExceptionTest() {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
@@ -236,7 +236,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = Test.None.class)
-    public void messagingExceptionFromAddToMethod() {
+    public void messagingExceptionFromAddToMethodTest() {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
@@ -267,7 +267,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = Test.None.class)
-    public void messagingExceptionFromAddCcMethod() {
+    public void messagingExceptionFromAddCcMethodTest() {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
@@ -299,7 +299,7 @@ public class EmailSenderServiceTest {
 
 
     @Test(expected = Test.None.class)
-    public void testWithEmptyEmailProviderProperties() {
+    public void sendWithEmptyEmailProviderPropertiesTest() {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
 
@@ -326,7 +326,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = Test.None.class)
-    public void testWithNullUsernameEmailProviderProperties() {
+    public void sendWithNullUsernameEmailProviderPropertiesTest() {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
         EmailProviderProperties emailProviderProperties = new EmailProviderProperties();
@@ -355,7 +355,7 @@ public class EmailSenderServiceTest {
     }
 
     @Test(expected = Test.None.class)
-    public void testWithNullPasswordEmailProviderProperties() {
+    public void sendWithNullPasswordEmailProviderPropertiesTest() {
         readyEmail.getEmailTemplate().setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
         MimeMessageHelper mimeMessageHelper = mock(MimeMessageHelper.class);
         EmailProviderProperties emailProviderProperties = new EmailProviderProperties();

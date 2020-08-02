@@ -27,22 +27,11 @@ public class InputSystemMapperTest {
         inputSystem.setEmailTemplate(emailTemplateSet);
 
         InputSystemDto inputSystemDto=new InputSystemDto();
-        //Fixme
-
-        // inputSystemDto.setId("inputSystemDtoId");
         inputSystemDto.setName("inputSystemDtoName");
     }
 
-    //Fixme
-//    @Test
-//    public void toInputSystemDto(){
-//        Assert.assertEquals(inputSystem.getInputSystemId(),InputSystemMapper.INSTANCE.toInputSystemDto(inputSystem).getId());
-//        Assert.assertEquals(inputSystem.getInputSystemName(),InputSystemMapper.INSTANCE.toInputSystemDto(inputSystem).getName());
-//    }
-
     @Test
-    public void toInputSystem(){
-        //Fixme
+    public void toInputSystemTest(){
         Assert.assertEquals(inputSystemDto.getName(),InputSystemMapper.INSTANCE.toInputSystem(inputSystemDto).getInputSystemName());
     }
 }

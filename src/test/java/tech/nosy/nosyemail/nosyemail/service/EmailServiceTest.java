@@ -67,7 +67,7 @@ public class EmailServiceTest {
 
 
   @org.junit.Test(expected = org.junit.Test.None.class)
-  public void handleReadyEmail() {
+  public void handleReadyEmailTest() {
     readyEmail=new ReadyEmail();
     emailTemplate.setEmailTemplateFromProvider(EmailFromProvider.DEFAULT);
     readyEmail.setEmailTemplate(emailTemplate);
@@ -76,7 +76,7 @@ public class EmailServiceTest {
   }
 
   @org.junit.Test(expected = org.junit.Test.None.class)
-  public void handleReadyEmailYandex() {
+  public void handleReadyEmailYandexTest() {
     readyEmail=new ReadyEmail();
     emailTemplate.setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
     readyEmail.setEmailTemplate(emailTemplate);
@@ -84,7 +84,7 @@ public class EmailServiceTest {
   }
 
   @org.junit.Test(expected = org.junit.Test.None.class)
-  public void handleReadyEmailGmail() {
+  public void handleReadyEmailGmailTest() {
     readyEmail=new ReadyEmail();
     emailTemplate.setEmailTemplateFromProvider(EmailFromProvider.GMAIL);
     readyEmail.setEmailTemplate(emailTemplate);
@@ -92,7 +92,7 @@ public class EmailServiceTest {
     emailServiceListener.handleReadyEmail(readyEmail);
   }
   @org.junit.Test(expected = Test.None.class)
-  public void checkEmailTemplate() {
+  public void checkEmailTemplateTest() {
     EmailProviderProperties emailProviderProperties=new EmailProviderProperties();
     emailProviderProperties.setUsername("username");
     emailProviderProperties.setPassword("password");

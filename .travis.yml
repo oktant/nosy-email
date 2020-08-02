@@ -4,7 +4,7 @@ dist: bionic
 jdk: openjdk8
 
 env:
-  NOSY_EMAIL_IMAGE: nosy-email:2.4
+  NOSY_EMAIL_IMAGE: nosy-email:2.4.1
   
 addons:
   sonarcloud:

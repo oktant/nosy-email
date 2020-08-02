@@ -35,26 +35,26 @@ public class EmailConfigServiceTest {
     }
 
     @Test(expected = Test.None.class)
-    public void saveEmailConfig() {
+    public void saveEmailConfigTest() {
         String email = "oktay@gmail.com";
         emailConfigService.saveEmailConfig(email, emailConfig);
     }
 
     @Test(expected = Test.None.class)
-    public void getConfigs() {
+    public void getConfigsTest() {
         String email = "oktay@gmail.com";
         emailConfigService.getConfigs(email);
     }
 
     @Test(expected = CustomEmailConfigNotExists.class)
-    public void getConfigCustomException() {
+    public void getConfigCustomExceptionTest() {
         String email = "oktay@gmail.com";
         String configName= "configName";
         emailConfigService.getConfig(email, configName);
     }
 
     @Test(expected = Test.None.class)
-    public void getConfig() {
+    public void getConfigTest() {
         String email = "oktay@gmail.com";
         String configName= "configName";
         when(emailConfigRepository.findAllByEmailConfigNameAndEmail(anyString(),anyString()))
@@ -64,7 +64,7 @@ public class EmailConfigServiceTest {
 
 
     @Test(expected = Test.None.class)
-    public void updateConfig() {
+    public void updateConfigTest() {
         String email = "oktay@gmail.com";
         String configName= "configName";
         when(emailConfigRepository.findAllByEmailConfigNameAndEmail(anyString(),anyString()))
@@ -73,7 +73,7 @@ public class EmailConfigServiceTest {
 
     }
     @Test(expected = CustomEmailConfigNotExists.class)
-    public void updateConfigNull() {
+    public void updateConfigNullTest() {
         String email = "oktay@gmail.com";
         String configName= "configName";
         emailConfigService.updateConfig(email, configName, emailConfig);

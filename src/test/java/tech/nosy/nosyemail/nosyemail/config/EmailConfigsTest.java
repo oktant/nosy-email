@@ -25,25 +25,25 @@ public class EmailConfigsTest {
 
 
   @Test
-  public void javaMailYandexSender() {
+  public void javaMailYandexSenderTest() {
     assertEquals("smtp.yandex.ru",emailConfigPopulationBean.javaMailYandexSender().getHost());
   }
 
   @Test
-  public void javaMailGmailSender() {
+  public void javaMailGmailSenderTest() {
     assertEquals("smtp.yandex.ru",emailConfigPopulationBean.javaMailDefaultSender().getHost());
 
 
   }
 
   @Test
-  public void javaMailDefaultSender() {
+  public void javaMailDefaultSenderTest() {
     assertEquals("smtp.gmail.com",emailConfigPopulationBean.javaMailGmailSender().getHost());
 
   }
 
   @Test(expected = Test.None.class)
-  public void mimeMessageHelper() {
+  public void mimeMessageHelperTest() {
     MimeMessage mimeMessage=mock(MimeMessage.class);
 
     emailConfigPopulationBean.mimeMessageHelper(mimeMessage);

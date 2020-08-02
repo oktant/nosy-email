@@ -13,12 +13,12 @@ public class RestConfigurationTest {
     private RestConfiguration restConfiguration;
 
     @Test(expected = Test.None.class)
-    public void corsFilter() {
+    public void corsFilterTest() {
         restConfiguration.corsFilter();
     }
 
     @Test(expected = Test.None.class)
-    public void apiDocket() {
+    public void apiDocketTest() {
         restConfiguration.apiDocket();
 
     }

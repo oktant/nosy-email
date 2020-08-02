@@ -89,7 +89,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test
-    public void getEmailTemplateById() {
+    public void getEmailTemplateByIdTest() {
         doReturn(emailTemplate).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem
                 (anyString(), any());
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
@@ -102,7 +102,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test(expected= EmailTemplateNotFoundException.class)
-    public void getEmailTemplateByIdError() {
+    public void getEmailTemplateByIdErrorTest() {
         doReturn(null).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem
                 (anyString(), any());
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
@@ -115,7 +115,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test
-    public void newEmailTemplate() {
+    public void newEmailTemplateTest() {
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         doReturn(emailTemplate).when(emailTemplateRepositoryMock).save(any());
         Assert.assertEquals(emailTemplate.getEmailTemplateName(), emailTemplateServiceMock.newEmailTemplate(emailTemplate,
@@ -123,7 +123,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test(expected = EmailTemplateExistException.class)
-    public void newEmailTemplateEmailTemplateExists() {
+    public void newEmailTemplateEmailTemplateExistsTest() {
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         doReturn(emailTemplate).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem(anyString(),
                 any());
@@ -132,7 +132,7 @@ public class EmailTemplateServiceTest {
 
     }
     @Test
-    public void getAllEmailProviders() {
+    public void getAllEmailProvidersTest() {
         ArrayList<String> providers=new ArrayList<>();
         providers.add("DEFAULT");
         providers.add("YANDEX");
@@ -143,7 +143,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test
-    public void deleteEmailTemplate() {
+    public void deleteEmailTemplateTest() {
         doReturn(emailTemplate).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem
                 (anyString(), any());
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
@@ -152,7 +152,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test
-    public void getListOfEmailTemplates() {
+    public void getListOfEmailTemplatesTest() {
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         List<EmailTemplate> listOfEmailTemplates=new ArrayList<>();
         listOfEmailTemplates.add(emailTemplate);
@@ -164,20 +164,20 @@ public class EmailTemplateServiceTest {
     }
 
     @Test(expected = InputSystemNotFoundException.class)
-    public void getListOfEmailTemplatesInputSystemNotFound() {
+    public void getListOfEmailTemplatesInputSystemNotFoundTest() {
         doReturn(null).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         emailTemplateServiceMock.getListOfEmailTemplates(inputSystemId, email);
     }
 
     @Test(expected = InputSystemNotFoundException.class)
-    public void getListEmailTemplatesListNull() {
+    public void getListEmailTemplatesListNullTest() {
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         when(inputSystemRepository.findInputSystemByEmailAndInputSystemName(email, inputSystem.getInputSystemName())).thenReturn(null);
         assertNull(emailTemplateServiceMock.getListOfEmailTemplates(inputSystem.getInputSystemName(), email));
     }
 
     @Test
-    public void getListEmailTemplatesListEmpty() {
+    public void getListEmailTemplatesListEmptyTest() {
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         List<EmailTemplate> listOfEmailTemplates=new ArrayList<>();
         when(emailTemplateRepositoryMock.findEmailTemplatesByInputSystem(inputSystem)).thenReturn(listOfEmailTemplates);
@@ -185,7 +185,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test
-    public void postEmailTemplate() {
+    public void postEmailTemplateTest() {
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         doReturn(emailTemplate).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem
                 (anyString(), any());
@@ -196,13 +196,13 @@ public class EmailTemplateServiceTest {
     }
 
     @Test
-    public void postEmail() {
+    public void postEmailTest() {
         assertEquals("Test", readyEmail.getEmailProviderProperties().getUsername());
         assertEquals("Test Email Template Name", readyEmail.getEmailTemplate().getEmailTemplateName());
     }
 
     @Test(expected = UsernameAndPasswordAreNotProvidedForNonDefaultException.class)
-    public void postEmailTemplateNonDefaultWithoutPassword() {
+    public void postEmailTemplateNonDefaultWithoutPasswordTest() {
 
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
@@ -220,7 +220,7 @@ public class EmailTemplateServiceTest {
 
     }
     @Test(expected = UsernameAndPasswordAreNotProvidedForNonDefaultException.class)
-    public void postEmailTemplateNonDefaultWithoutUsername() {
+    public void postEmailTemplateNonDefaultWithoutUsernameTest() {
 
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
@@ -241,7 +241,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test(expected = UsernameAndPasswordAreNotProvidedForNonDefaultException.class)
-    public void postEmailTemplateNonDefaultWithoutPasswordWithoutUsername() {
+    public void postEmailTemplateNonDefaultWithoutPasswordWithoutUsernameTest() {
 
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
@@ -258,7 +258,7 @@ public class EmailTemplateServiceTest {
 
     }
     @Test(expected = UsernameAndPasswordAreNotProvidedForNonDefaultException.class)
-    public void postEmailTemplateNonDefaultWithPasswordNull() {
+    public void postEmailTemplateNonDefaultWithPasswordNullTest() {
 
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
@@ -279,7 +279,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test(expected = UsernameAndPasswordAreNotProvidedForNonDefaultException.class)
-    public void postEmailTemplateNonDefaultWithEmptyUsername() {
+    public void postEmailTemplateNonDefaultWithEmptyUsernameTest() {
 
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
@@ -302,7 +302,7 @@ public class EmailTemplateServiceTest {
 
 
     @Test
-    public void postEmailTemplateNonDefaultWithUsernameAndPassword() {
+    public void postEmailTemplateNonDefaultWithUsernameAndPasswordTest() {
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
         emailTemplateForYandex.setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
@@ -319,7 +319,7 @@ public class EmailTemplateServiceTest {
 
 
     @Test
-    public void postEmailTemplateNonDefaultWithParameterProvider() {
+    public void postEmailTemplateNonDefaultWithParameterProviderTest() {
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
         emailTemplateForYandex.setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
@@ -350,7 +350,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test(expected = NotEnoughParametersForPlaceholdersException.class)
-    public void postEmailTemplateNonDefaultWithParameterProviderButNotEnoughReplacements() {
+    public void postEmailTemplateNonDefaultWithParameterProviderButNotEnoughReplacementsTest() {
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
         emailTemplateForYandex.setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
@@ -380,7 +380,7 @@ public class EmailTemplateServiceTest {
 
 
     @Test(expected = NotEnoughParametersForPlaceholdersException.class)
-    public void postEmailTemplateNonDefaultWithParameterProviderButNotEnoughReplacementsClosingTag() {
+    public void postEmailTemplateNonDefaultWithParameterProviderButNotEnoughReplacementsClosingTagTest() {
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
         emailTemplateForYandex.setEmailTemplateFromProvider(EmailFromProvider.YANDEX);
@@ -408,7 +408,7 @@ public class EmailTemplateServiceTest {
         assertEquals("Test Email Template Name", readyEmail.getEmailTemplate().getEmailTemplateName());
     }
     @Test(expected = UsernameAndPasswordAreNotProvidedForNonDefaultException.class)
-    public void postEmailTemplateNonDefaultWithUsernameNull() {
+    public void postEmailTemplateNonDefaultWithUsernameNullTest() {
 
         EmailTemplate emailTemplateForYandex=new EmailTemplate();
         emailTemplateForYandex.setEmailTemplateName("Test");
@@ -430,14 +430,14 @@ public class EmailTemplateServiceTest {
 
 
     @Test
-    public void updateEmailTemplate() {
+    public void updateEmailTemplateTest() {
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
         doReturn(emailTemplate).when(emailTemplateRepositoryMock).findEmailTemplateByEmailTemplateNameAndInputSystem
                 (anyString(), any());
         Assert.assertEquals(emailTemplate,emailTemplateServiceMock.updateEmailTemplate(emailTemplate, inputSystemId, emailTemplateId, email));
     }
     @Test
-    public void updateEmailTemplateEmptyTemplateFromAddress() {
+    public void updateEmailTemplateEmptyTemplateFromAddressTest() {
         emailTemplate.setEmailTemplateFromAddress("");
 
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
@@ -446,7 +446,7 @@ public class EmailTemplateServiceTest {
         Assert.assertEquals(emailTemplate,emailTemplateServiceMock.updateEmailTemplate(emailTemplate, inputSystemId, emailTemplateId, email));
     }
     @Test
-    public void updateEmailTemplateNullTemplateFromAddress() {
+    public void updateEmailTemplateNullTemplateFromAddressTest() {
         emailTemplate.setEmailTemplateFromAddress(null);
 
         doReturn(inputSystem).when(inputSystemRepository).findInputSystemByEmailAndInputSystemName(anyString(), anyString());
@@ -457,7 +457,7 @@ public class EmailTemplateServiceTest {
 
 
     @Test(expected = EmailTemplateNameInvalidException.class)
-    public void updateEmailTemplateNullTemplateName() {
+    public void updateEmailTemplateNullTemplateNameTest() {
         emailTemplate.setEmailTemplateName(null);
         emailTemplate.setEmailTemplateFromAddress(null);
 
@@ -468,7 +468,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test(expected = EmailTemplateNameInvalidException.class)
-    public void updateEmailTemplateEmptyTemplateName() {
+    public void updateEmailTemplateEmptyTemplateNameTest() {
         emailTemplate.setEmailTemplateName("");
         emailTemplate.setEmailTemplateFromAddress(null);
 
@@ -478,7 +478,7 @@ public class EmailTemplateServiceTest {
         Assert.assertEquals(emailTemplate,emailTemplateServiceMock.updateEmailTemplate(emailTemplate, inputSystemId, emailTemplateId, email));
     }
     @Test
-    public void updateEmailTemplateNotEqualsToCurrent() {
+    public void updateEmailTemplateNotEqualsToCurrentTest() {
         EmailTemplate emailTemplate1=new EmailTemplate();
 
         emailTemplate1.setEmailTemplateName("TestName");
@@ -507,7 +507,7 @@ public class EmailTemplateServiceTest {
                         emailTemplate.getEmailTemplateName(), email).getEmailTemplateName());
     }
     @Test(expected = EmailTemplateNameInvalidException.class)
-    public void updateEmailTemplateCurrentIsEmpty() {
+    public void updateEmailTemplateCurrentIsEmptyTest() {
         EmailTemplate emailTemplate1=new EmailTemplate();
         emailTemplate.setEmailTemplateName("");
         String currentEmailTemplateId="dasd";
@@ -532,7 +532,7 @@ public class EmailTemplateServiceTest {
         Assert.assertEquals(emailTemplate,emailTemplateServiceMock.updateEmailTemplate(emailTemplate1, inputSystemId, emailTemplateId, email));
     }
     @Test(expected = EmailTemplateNotFoundException.class)
-    public void updateEmailTemplateNull() {
+    public void updateEmailTemplateNullTest() {
         EmailTemplate emailTemplate1=null;
 
         String currentEmailTemplateId="dasd";
@@ -558,7 +558,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test
-    public void testSetEmailConfig(){
+    public void setEmailConfigTest(){
         emailTemplate.setEmailTemplateFromProvider(EmailFromProvider.CUSTOM);
         EmailConfig emailConfig=new EmailConfig();
         emailConfig.setEmailConfigId("asdasd");
@@ -570,7 +570,7 @@ public class EmailTemplateServiceTest {
     }
 
     @Test(expected = CustomEmailConfigShouldNotBeEmptyException.class)
-    public void testSetEmailConfigNull(){
+    public void setEmailConfigNullTest(){
         emailTemplate.setEmailTemplateFromProvider(EmailFromProvider.CUSTOM);
         EmailConfig emailConfig=null;
 

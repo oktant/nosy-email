@@ -54,7 +54,7 @@ public class EmailTemplateMapperTest {
 
     }
     @Test
-    public void toEmailTemplateDto(){
+    public void toEmailTemplateDtoTest(){
 
         assertEquals(emailTemplate.getEmailTemplateFromProvider(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getFromProvider());
         assertEquals(emailTemplate.getEmailTemplateCc(), EmailTemplateMapper.INSTANCE.toEmailTemplateDto(emailTemplate).getCc());
@@ -71,7 +71,7 @@ public class EmailTemplateMapperTest {
     }
 
     @Test
-    public void toEmailTemplate(){
+    public void toEmailTemplateTest(){
         assertEquals(emailTemplateDto.getFromProvider(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateFromProvider());
         assertEquals(emailTemplateDto.getCc(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateCc());
         assertEquals(emailTemplateDto.getTo(), EmailTemplateMapper.INSTANCE.toEmailTemplate(emailTemplateDto).getEmailTemplateTo());

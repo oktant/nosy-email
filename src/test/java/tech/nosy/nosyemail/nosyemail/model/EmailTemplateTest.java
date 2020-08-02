@@ -10,18 +10,18 @@ import tech.nosy.nosyemail.nosyemail.exceptions.EmailTemplateNameInvalidExceptio
 public class EmailTemplateTest {
 
     @Test(expected = EmailTemplateNameInvalidException.class)
-    public void onCreate() {
+    public void onCreateTest() {
         EmailTemplate emailTemplate=new EmailTemplate();
         emailTemplate.onCreate();
     }
     @Test(expected = EmailTemplateNameInvalidException.class)
-    public void onCreateEmpty() {
+    public void onCreateEmptyTest() {
         EmailTemplate emailTemplate=new EmailTemplate();
         emailTemplate.setEmailTemplateName("");
         emailTemplate.onCreate();
     }
     @Test(expected = Test.None.class)
-    public void onCreateSuccess() {
+    public void onCreateSuccessTest() {
         EmailTemplate emailTemplate=new EmailTemplate();
         emailTemplate.setEmailTemplateName("dasdas");
         emailTemplate.onCreate();

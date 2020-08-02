@@ -44,14 +44,14 @@ public class InputSystemServiceTest {
     }
 
     @Test(expected = Test.None.class)
-    public void deleteInputSystem(){
+    public void deleteInputSystemTest(){
         when(inputSystemRepository.findInputSystemByEmailAndInputSystemName(anyString(),anyString())).thenReturn(
                 inputSystem);
 
         inputSystemServiceMock.deleteInputSystem(inputSystem.getInputSystemId(), email);
     }
     @Test(expected = InputSystemNotFoundException.class)
-    public void deleteInputSystemTest() {
+    public void deleteInputSystemInputNotFoundTest() {
 
         String email="test@nosy.tech";
         InputSystem inputSystem=new InputSystem();
@@ -66,13 +66,13 @@ public class InputSystemServiceTest {
                 inputSystemServiceMock.getListOfInputSystems("",email));
     }
     @Test
-    public void getListOfInputSystemsTestEmpty() {
+    public void getListOfInputSystemsTestEmptyTest() {
         assertEquals(new HashSet<InputSystemService>(),
                 inputSystemServiceMock.getListOfInputSystems(null,email));
     }
 
     @Test
-    public void getListOfInputSystemsTestNotEmpty() {
+    public void getListOfInputSystemsTestNotEmptyTest() {
 
         when(inputSystemRepository.findInputSystemByEmailAndInputSystemName(anyString(), anyString()))
                 .thenReturn(inputSystem);
